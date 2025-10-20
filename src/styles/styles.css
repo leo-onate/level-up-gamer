@@ -1,0 +1,152 @@
+/* ======== ESTILOS GENERALES ======== */
+body {
+  background-color: #0b0c10;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: "Orbitron", sans-serif;
+  color: #66fcf1;
+}
+
+a {
+  color: #66fcf1;
+  text-decoration: none;
+}
+a:hover {
+  color: #45a29e;
+}
+
+/* ======== NAVBAR ======== */
+.navbar {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+.navbar-brand {
+  font-weight: bold;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
+}
+.navbar-nav .nav-link.active {
+  color: #45a29e !important;
+  font-weight: bold;
+}
+
+/* ======== LOGIN / REGISTRO ======== */
+.login-container {
+  background-color: #1f2833;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #66fcf1;
+}
+
+.login-container form label {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.login-container input {
+  background-color: #0b0c10;
+  color: #fff;
+  border: 1px solid #45a29e;
+  border-radius: 5px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #66fcf1;
+  box-shadow: 0 0 5px #45a29e;
+}
+
+.login-container button {
+  width: 100%;
+  background-color: #45a29e;
+  border: none;
+  color: #0b0c10;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #66fcf1;
+  color: #000;
+}
+
+/* ======== TEXTOS ======== */
+.form-text, .invalid-feedback {
+  font-size: 0.9rem;
+}
+
+/* ======== HOME ======== */
+.home-title {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 2rem;
+  color: #66fcf1;
+}
+
+.home-text {
+  text-align: center;
+  margin-top: 15px;
+  color: #c5c6c7;
+}
+
+/* ======== BOTONES Y LINKS ======== */
+.btn-primary {
+  background-color: #45a29e;
+  border-color: #45a29e;
+}
+.btn-primary:hover {
+  background-color: #66fcf1;
+  border-color: #66fcf1;
+  color: #000;
+}
+
+.btn-success {
+  background-color: #2ecc71;
+  border-color: #27ae60;
+}
+.btn-success:hover {
+  background-color: #45a29e;
+  border-color: #45a29e;
+  color: #000;
+}
+
+/* ======== SCROLL Y DETALLES ======== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1f2833;
+}
+::-webkit-scrollbar-thumb {
+  background: #45a29e;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #66fcf1;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 576px) {
+  .login-container {
+    margin: 30px 15px;
+    padding: 25px 20px;
+  }
+}
