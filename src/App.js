@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import We from "./pages/We";
 import Catalogo from "./pages/Catalogo";
 import ProductDetail from "./pages/ProductDetail";
+import Carrito from "./pages/Carrito";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -58,6 +59,9 @@ export default function App() {
           {/* Catalogo */}
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/catalogo/:id" element={<ProductDetail />} />
+
+          {/* Carrito */}
+          <Route path="/carrito" element={<Carrito />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />

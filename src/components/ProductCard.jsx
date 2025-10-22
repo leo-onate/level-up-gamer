@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import images from "../services/imageLoader";
+import { useCart } from "../context/CartContext";
 
 export default function ProductCard({ product }) {
+  const { addToCart } = useCart();
+
   const src =
     (product.imagen && images[product.imagen]) ||
     (product.imagen && product.imagen.startsWith("/") ? product.imagen : `/assets/img/${product.imagen}`) ||
@@ -19,9 +22,14 @@ export default function ProductCard({ product }) {
 
         <div className="product-actions mt-2">
           <strong>${product.precio}</strong>
-          <Link to={`/catalogo/${product.id}`} className="btn btn-sm btn-primary">
-            Mostrar más
-          </Link>
+          <div className="d-flex gap-2">
+            <button className="btn btn-sm btn-success" onClick={() => addToCart(product, 1)}>
+              Añadir
+            </button>
+            <Link to={`/catalogo/${product.id}`} className="btn btn-sm btn-primary">
+              Mostrar más
+            </Link>
+          </div>
         </div>
       </div>
     </div>
