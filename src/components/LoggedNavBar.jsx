@@ -38,6 +38,11 @@ export default function LoggedNavbar() {
                 Perfil👤
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to="/carrito" className="nav-link">
+                Carrito🛒
+              </NavLink>
+            </li>
 
             {/* Sección de usuario logueado */}
             {user && (
