@@ -2,7 +2,7 @@ export const products = [
   {
     id: "p1",
     nombre: "Auriculares Gamer X",
-    imagen: "auriculares-x.jpg",
+    imagen: "AudifonoGamer.jpg",
     precio: 59.99,
     descripcion: "Auriculares con micrófono y sonido surround.",
     oferta: false,
@@ -20,7 +20,7 @@ export const products = [
   {
     id: "p3",
     nombre: "Silla Gamer Pro",
-    imagen: "silla-pro.jpg",
+    imagen: "SillaGamer.jpg",
     precio: 249.95,
     descripcion: "Silla ergonómica con soporte lumbar ajustable.",
     oferta: false,
@@ -33,7 +33,7 @@ export const products = [
     precio: 20.99,
     descripcion: "Moneda de juego para Umamusume Pretty Derby.",
     oferta: false,
-    categoria: "Otros"
+    categoria: "Adicionales"
   },
   {
     id: "p5",
