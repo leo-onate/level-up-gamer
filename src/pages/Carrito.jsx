@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import images from "../services/imageLoader"; 
 
 export default function Carrito() {
   const { items, removeFromCart, updateQty, clearCart, getTotal } = useCart();
@@ -23,7 +24,15 @@ export default function Carrito() {
         {items.map(it => (
           <div key={it.id} className="list-group-item d-flex align-items-center justify-content-between">
             <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-              <img src={it.imagen?.startsWith("/") ? it.imagen : `/assets/img/${it.imagen}`} alt={it.nombre} style={{ width: 80, height: 60, objectFit: "cover" }} />
+              <img
+                src={
+                  (it.imagen && images[it.imagen]) ||
+                  (it.imagen && it.imagen.startsWith("/") ? it.imagen : `/assets/img/${it.imagen}`) ||
+                  "/assets/img/placeholder.jpg"
+                }
+                alt={it.nombre}
+                style={{ width: 80, height: 60, objectFit: "cover" }}
+              />
               <div>
                 <div><strong>{it.nombre}</strong></div>
                 <div className="text-muted">${it.precio}</div>
