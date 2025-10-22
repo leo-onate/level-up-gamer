@@ -8,18 +8,26 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Inicio from "./pages/Inicio";
+import Blog from "./pages/Blog";
+import Post from "./pages/Post";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
 
+
+
 export default function App() {
   const location = useLocation();
   const isProfile = location.pathname === "/profile";
-
+  // rutas que deben usar la navbar "pública"
+  const publicPaths = ["/", "/login", "/register"];
+  // normalizar pathname: minusculas y quitar slashes finales
+  const pathname = (location.pathname || "/").toLowerCase().replace(/\/+$/, "") || "/";
+  const isPublic = publicPaths.includes(pathname);
   return (
     <>
-      {isProfile ? <LoggedNavBar /> : <Navbar />}
+      {isPublic ? <Navbar /> : <LoggedNavBar />}
       <div className="container mt-4">
         <Routes>
           {/* Página principal */}
@@ -32,7 +40,13 @@ export default function App() {
           <Route path="/register" element={<Register />} />
 
           {/* Inicio */}
-          <Route path="/profile" element={<Inicio />} />
+          <Route path="/inicio" element={<Inicio />} />
+
+          {/* Blogs */}
+          <Route path="/blogs" element={<Blog />} />
+
+          {/* Post */}
+          <Route path="/post" element={<Post />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />

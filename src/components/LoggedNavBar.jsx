@@ -24,12 +24,17 @@ export default function LoggedNavbar() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink to="/blogs" className="nav-link">
+                Blogs🎙️
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <button className="btn btn-link nav-link" >
                 Catalogo🎮
               </button>
             </li>
             <li className="nav-item">
-              <NavLink to="/profile" className="nav-link">
+              <NavLink to="/aaa" className="nav-link">
                 Perfil👤
               </NavLink>
             </li>
