@@ -128,7 +128,7 @@ a:hover {
   color: #000;
 }
 
-/* ======== SCROLL Y DETALLES ======== */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -143,10 +143,57 @@ a:hover {
   background: #66fcf1;
 }
 
-/* ======== RESPONSIVE ======== */
+
 @media (max-width: 576px) {
   .login-container {
     margin: 30px 15px;
     padding: 25px 20px;
   }
+}
+
+
+.producto-card {
+  max-width: 320px;        /* ancho máximo de la tarjeta (ajusta si quieres) */
+  height: 100%;            /* para que la tarjeta pueda estirarse dentro de la columna */
+  display: flex;
+  flex-direction: column;  /* card-body se queda abajo */
+  overflow: hidden;
+  min-height: 380px; /* ajusta si quieres más/menos */
+}
+
+/* Imagen con tamaño fijo y recorte centrado */
+.producto-card .card-img-top {
+  width: 100%;
+  height: 200px;           /* altura fija: cambia a la que prefieras */
+  object-fit: cover;       /* recorta la imagen para cubrir sin deformar */
+  object-position: center; /* centra el recorte */
+}
+
+/* Asegurar que todas las tarjetas en la grid tengan la misma altura */
+.row > .col-12 > .producto-card,
+.row > .col-sm-6 > .producto-card,
+.row > .col-md-4 > .producto-card {
+  height: 100%;
+}
+
+/* Hacer que el cuerpo ocupe el espacio restante (para alinear botones/infos abajo) */
+.producto-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
+}
+
+/* Asegura que las acciones (precio + botón) se queden abajo y sean visibles */
+.producto-card .product-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* empuja acciones al fondo del card-body */
+  gap: 8px;
+}
+
+/* Si quieres un botón más visible en fondo claro dentro de la card blanca */
+.producto-card .btn {
+  z-index: 2;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 
 export default function LoggedNavBar() {
   const noop = (e) => {
@@ -13,19 +13,24 @@ export default function LoggedNavBar() {
         <div>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <button className="btn btn-link nav-link" onClick={noop}>
+              <NavLink to="/profile" className="nav-link">
                 HOME
-              </button>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <button className="btn btn-link nav-link" onClick={noop}>
+              <NavLink to="/catalogo" className="nav-link">
                 CATALOGO
-              </button>
+              </NavLink>
             </li>
             <li className="nav-item">
               <button className="btn btn-link nav-link" onClick={noop}>
                 CARRITO
               </button>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/We" className="nav-link">
+                Nosotros
+              </NavLink>
             </li>
           </ul>
         </div>
