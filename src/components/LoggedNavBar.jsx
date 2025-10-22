@@ -29,7 +29,7 @@ export default function LoggedNavbar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/we" className="nav-link">
+              <NavLink to="/catalogo" className="nav-link">
                 Catalogo🎮
               </NavLink>
             </li>
