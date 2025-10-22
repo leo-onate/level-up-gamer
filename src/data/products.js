@@ -34,8 +34,16 @@ export const products = [
     descripcion: "Moneda de juego para Umamusume Pretty Derby.",
     oferta: false,
     categoria: "Otros"
+  },
+  {
+    id: "p5",
+    nombre: "Hollow Knight Silksong",
+    imagen: "silksongg.jpg",
+    precio: 20.00,
+    descripcion: "Secuela del videojuego Hollow Knight.",
+    oferta: false,
+    categoria: "Juegos"
   }
-  
 
   // añade más productos jeshu...
 ];
