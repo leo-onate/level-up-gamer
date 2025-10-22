@@ -1,8 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logout, getCurrentUser } from "../services/auth";
 
-export default function LoggedNavBar() {
-  const noop = (e) => {
-    e.preventDefault();
+
+export default function LoggedNavbar() {
+  const user = getCurrentUser();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -13,25 +19,37 @@ export default function LoggedNavBar() {
         <div>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <NavLink to="/profile" className="nav-link">
-                HOME
+              <NavLink to="/inicio" className="nav-link">
+                Home🏠
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/catalogo" className="nav-link">
-                CATALOGO
+              <NavLink to="/blogs" className="nav-link">
+                Blogs🎙️
               </NavLink>
             </li>
             <li className="nav-item">
-              <button className="btn btn-link nav-link" onClick={noop}>
-                CARRITO
+              <button className="btn btn-link nav-link" >
+                Catalogo🎮
               </button>
             </li>
             <li className="nav-item">
-              <NavLink to="/We" className="nav-link">
-                Nosotros
+              <NavLink to="/aaa" className="nav-link">
+                Perfil👤
               </NavLink>
             </li>
+
+            {/* Sección de usuario logueado */}
+            {user && (
+              <li className="nav-item ms-3 d-flex align-items-center text-light">
+                <span className="me-2">
+                  👋 Hola, <strong>{user.nombre}</strong>
+                </span>
+                <NavLink to = "/Login" className="nav-link">
+                 Cerrar sesión
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

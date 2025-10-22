@@ -14,7 +14,7 @@ export default function Login() {
       alert("Usuario o contraseña incorrectos");
       return;
     }
-    navigate("/profile");
+    navigate("/inicio");
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { getCurrentUser } from "../services/auth";
 
-export default function Profile() {
+export default function Inicio() {
   const user = getCurrentUser();
 
   if (!user) {
@@ -14,8 +14,7 @@ export default function Profile() {
 
   return (
     <div className="container mt-5">
-      <h2>Hola {user.nombre} {user.correo}</h2>
-      <h2>kfdjksfjkd</h2>
+      <h2>Bienvenido a la mejor tienda Gamer de chile</h2>
     </div>
   );
 }
