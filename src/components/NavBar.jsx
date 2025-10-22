@@ -20,7 +20,11 @@ export default function Navbar() {
                 Login
               </NavLink>
             </li>
-            
+            <li className="nav-item">
+              <NavLink to="/register" className="nav-link">
+                Registrarse
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
