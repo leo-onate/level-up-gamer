@@ -53,7 +53,7 @@ export default function App() {
           <Route path="/blogs" element={<Blog />} />
 
           {/* Post */}
-          <Route path="/post" element={<Post />} />
+          <Route path="/blog/:id" element={<Post />} />
 
           {/* Nosotros */}
           <Route path="/we" element={<We />} />

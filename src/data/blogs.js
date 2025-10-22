@@ -1,12 +1,11 @@
-// Puedes partir con 3 posts de ejemplo.
-// Para agregar uno nuevo, copia un objeto y cambia id, title, etc.
+
 export const blogPosts = [
   {
     id: "setup-economico-2025",
     title: "Cómo armar tu setup gamer económico (2025)",
     date: "2025-10-20",
     category: "Guías",
-    cover: "", 
+    cover: "/blogsimg/xocas.jpg", 
     excerpt: "Componentes clave, periféricos y trucos para que rinda sin gastar de más.",
     content: `
     En esta guía te muestro qué priorizar para un setup económico:
@@ -23,7 +22,7 @@ export const blogPosts = [
     title: "Top juegos gratuitos del mes (PC, PlayStation, Xbox)",
     date: "2025-10-05",
     category: "Noticias",
-    cover: "",
+    cover: "/blogsimg/juegos.jpg",
     excerpt: "Nuestro resumen mensual de los mejores juegos free-to-play.",
     content: `
     Este mes destacan:
@@ -37,7 +36,7 @@ export const blogPosts = [
     title: "Comparativa: 5 mouses gamer que valen la pena (2025)",
     date: "2025-09-25",
     category: "Reseñas",
-    cover: "",
+    cover: "/blogsimg/mouse.jpeg",
     excerpt: "Sensor, peso, forma y switches: lo que realmente importa.",
     content: `
     Probamos 5 modelos populares:
