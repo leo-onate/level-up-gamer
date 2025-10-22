@@ -10,7 +10,7 @@ export default function Post() {
     return (
       <div className="container my-5">
         <h4>Artículo no encontrado</h4>
-        <button className="btn btn-primary mt-3" onClick={() => navigate("/blog")}>
+        <button className="btn btn-primary mt-3" onClick={() => navigate("/blogs")}>
           Volver al blog
         </button>
       </div>
@@ -23,7 +23,7 @@ export default function Post() {
   return (
     <div className="container my-4">
       <div className="mb-3">
-        <Link to="/blog" className="btn btn-outline-light btn-sm">← Volver al blog</Link>
+        <Link to="/blogs" className="btn btn-outline-light btn-sm">← Volver al blog</Link>
       </div>
 
       <span className="badge bg-secondary mb-2">{post.category}</span>
