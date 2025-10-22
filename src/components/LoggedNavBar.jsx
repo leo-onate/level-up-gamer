@@ -18,9 +18,9 @@ export default function LoggedNavBar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <button className="btn btn-link nav-link" onClick={noop}>
+              <NavLink to="/catalogo" className="nav-link">
                 CATALOGO
-              </button>
+              </NavLink>
             </li>
             <li className="nav-item">
               <button className="btn btn-link nav-link" onClick={noop}>
