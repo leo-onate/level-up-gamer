@@ -18,6 +18,11 @@ export default function ProductCard({ product }) {
         <div>
           <h5 className="card-title">{product.nombre}</h5>
           <p className="card-text">{product.descripcion}</p>
+          {product.categoria && (
+            <p className="mb-1">
+              <small>Categoría: <Link to={`/categoria/${encodeURIComponent(product.categoria)}`}>{product.categoria}</Link></small>
+            </p>
+          )}
         </div>
 
         <div className="product-actions mt-2">
