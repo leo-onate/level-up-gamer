@@ -28,7 +28,7 @@ export const products = [
   },
   {
     id: "p4",
-    nombre: "Carrat para Umamusume",
+    nombre: "Carats para Umamusume",
     imagen: "Carrats.png",
     precio: 20.99,
     descripcion: "Moneda de juego para Umamusume Pretty Derby.",
