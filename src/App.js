@@ -10,6 +10,10 @@ import Register from "./pages/Register";
 import Inicio from "./pages/Inicio";
 import Blog from "./pages/Blog";
 import Post from "./pages/Post";
+import Profile from "./pages/Profile"; 
+import We from "./pages/We";
+import Catalogo from "./pages/Catalogo";
+import ProductDetail from "./pages/ProductDetail";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,6 +51,13 @@ export default function App() {
 
           {/* Post */}
           <Route path="/post" element={<Post />} />
+
+          {/* Nosotros */}
+          <Route path="/we" element={<We />} />
+
+          {/* Catalogo */}
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/catalogo/:id" element={<ProductDetail />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
