@@ -7,7 +7,7 @@ import LoggedNavBar from "./components/LoggedNavBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Profile from "./pages/Profile"; // agregado
+import Inicio from "./pages/Inicio";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,8 +31,8 @@ export default function App() {
           {/* Register */}
           <Route path="/register" element={<Register />} />
 
-          {/* Profile */}
-          <Route path="/profile" element={<Profile />} />
+          {/* Inicio */}
+          <Route path="/profile" element={<Inicio />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
