@@ -1,19 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import images from "../services/imageLoader";
 
 export default function ProductCard({ product }) {
+  const src =
+    (product.imagen && images[product.imagen]) ||
+    (product.imagen && product.imagen.startsWith("/") ? product.imagen : `/assets/img/${product.imagen}`) ||
+    "/assets/img/placeholder.jpg";
+
   return (
-    <div className="producto-card card mb-3" style={{ maxWidth: 320 }}>
-      <img
-        src={product.imagen}
-        className="card-img-top"
-        alt={product.nombre}
-        style={{ height: 180, objectFit: "cover" }}
-      />
-      <div className="card-body">
-        <h5 className="card-title">{product.nombre}</h5>
-        <p className="card-text">{product.descripcion}</p>
-        <div className="d-flex justify-content-between align-items-center">
+    <div className="card producto-card">
+      <img src={src} alt={product.nombre} className="card-img-top" />
+      <div className="card-body d-flex flex-column">
+        <div>
+          <h5 className="card-title">{product.nombre}</h5>
+          <p className="card-text">{product.descripcion}</p>
+        </div>
+
+        <div className="product-actions mt-2">
           <strong>${product.precio}</strong>
           <Link to={`/catalogo/${product.id}`} className="btn btn-sm btn-primary">
             Mostrar más
