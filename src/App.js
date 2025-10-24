@@ -16,7 +16,9 @@ import Catalogo from "./pages/Catalogo";
 import ProductDetail from "./pages/ProductDetail";
 import Carrito from "./pages/Carrito";
 import Categoria from "./pages/Categoria";
-import Ofertas from "./pages/Ofertas"; 
+import Ofertas from "./pages/Ofertas";
+import Checkout from "./pages/Checkout";           // <-- nuevo
+import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
 
 
 // Estilos globales
@@ -68,6 +70,12 @@ export default function App() {
 
           {/* Carrito */}
           <Route path="/carrito" element={<Carrito />} />
+
+          {/* Checkout */}
+          <Route path="/checkout" element={<Checkout />} /> 
+
+          {/* Order Success */}
+          <Route path="/checkout/success" element={<OrderSuccess />} />   
 
           {/* Categorías */}
           <Route path="/categoria/:categoria" element={<Categoria />} />
