@@ -19,7 +19,7 @@ import Categoria from "./pages/Categoria";
 import Ofertas from "./pages/Ofertas";
 import Checkout from "./pages/Checkout";           // <-- nuevo
 import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
-
+import OrderFailure from "./pages/OrderFailure";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -76,6 +76,9 @@ export default function App() {
 
           {/* Order Success */}
           <Route path="/checkout/success" element={<OrderSuccess />} />   
+
+          {/* Order Fallida */}
+          <Route path="/checkout/fallo" element={<OrderFailure />} />
 
           {/* Categorías */}
           <Route path="/categoria/:categoria" element={<Categoria />} />

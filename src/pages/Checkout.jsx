@@ -31,7 +31,7 @@ export default function Checkout() {
     }
     setProcesando(true);
 
-    
+    // obtener y actualizar contador persistente
     const last = parseInt(localStorage.getItem("orderCounter") || "0", 10);
     const number = last + 1;
     try {
@@ -39,21 +39,37 @@ export default function Checkout() {
     } catch {}
 
     const order = {
-      id: `order_${number}`,      
-      number,                     
-      displayId: `Orden N°${number}`, 
+      id: `order_${number}`,
+      number,
+      displayId: `Orden N°${number}`,
       createdAt: Date.now(),
       customer: { nombre, direccion, ciudad, codigo, metodo },
       items,
       total,
     };
 
-    
+   
     setTimeout(() => {
+      const rnd = Math.floor(Math.random() * 3) + 1; 
+      if (rnd === 3) {
+        // fallo la compra
+        order.status = "failed";
+        order.error = "Pago rechazado por el procesador (simulado).";
+        try {
+          localStorage.setItem("lastOrder", JSON.stringify(order));
+        } catch {}
+        setProcesando(false);
+        navigate("/checkout/fallo");
+        return;
+      }
+
+      // éxito al comprar
+      order.status = "success";
       try {
         localStorage.setItem("lastOrder", JSON.stringify(order));
       } catch {}
       clearCart();
+      setProcesando(false);
       navigate("/checkout/success");
     }, 1200);
   };
