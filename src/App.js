@@ -16,6 +16,7 @@ import Catalogo from "./pages/Catalogo";
 import ProductDetail from "./pages/ProductDetail";
 import Carrito from "./pages/Carrito";
 import Categoria from "./pages/Categoria";
+import Ofertas from "./pages/Ofertas"; 
 
 
 // Estilos globales
@@ -62,6 +63,8 @@ export default function App() {
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/catalogo/:id" element={<ProductDetail />} />
 
+          {/* Ofertas */}
+          <Route path="/ofertas" element={<Ofertas />} />  
 
           {/* Carrito */}
           <Route path="/carrito" element={<Carrito />} />
