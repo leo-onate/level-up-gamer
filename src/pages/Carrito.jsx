@@ -55,7 +55,8 @@ export default function Carrito() {
 
         <div>
           <h4>Total: ${getTotal().toFixed(2)}</h4>
-          <button className="btn btn-success mt-2" onClick={() => alert("Checkout placeholder — integrar pago más adelante")}>Comprar</button>
+          
+          <button className="btn btn-success mt-2" onClick={() => navigate("/checkout")}>Comprar</button>
         </div>
       </div>
     </div>

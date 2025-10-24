@@ -16,7 +16,10 @@ import Catalogo from "./pages/Catalogo";
 import ProductDetail from "./pages/ProductDetail";
 import Carrito from "./pages/Carrito";
 import Categoria from "./pages/Categoria";
-
+import Ofertas from "./pages/Ofertas";
+import Checkout from "./pages/Checkout";           // <-- nuevo
+import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
+import OrderFailure from "./pages/OrderFailure";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -62,9 +65,20 @@ export default function App() {
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/catalogo/:id" element={<ProductDetail />} />
 
+          {/* Ofertas */}
+          <Route path="/ofertas" element={<Ofertas />} />  
 
           {/* Carrito */}
           <Route path="/carrito" element={<Carrito />} />
+
+          {/* Checkout */}
+          <Route path="/checkout" element={<Checkout />} /> 
+
+          {/* Order Success */}
+          <Route path="/checkout/success" element={<OrderSuccess />} />   
+
+          {/* Order Fallida */}
+          <Route path="/checkout/fallo" element={<OrderFailure />} />
 
           {/* Categorías */}
           <Route path="/categoria/:categoria" element={<Categoria />} />
