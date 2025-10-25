@@ -12,7 +12,7 @@ export default function LoggedNavbar() {
     navigate("/login");
   };
 
-  const isAdmin = user?.nombre === "admin"; // tal como pediste
+  const isAdmin = user?.nombre === "admin";
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
