@@ -85,7 +85,8 @@ export default function LoggedNavbar() {
                       className="dropdown-item"
                       onClick={(e) => {
                         e.preventDefault();
-                        // por ahora no hace nada (Agregar producto)
+                        setAdminOpen(false);
+                        navigate("/admin/agregar-producto"); 
                       }}
                     >
                       Agregar producto

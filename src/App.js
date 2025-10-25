@@ -21,6 +21,7 @@ import Checkout from "./pages/Checkout";           // <-- nuevo
 import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
 import OrderFailure from "./pages/OrderFailure";
 import AdminUsers from "./pages/AdminUsers";
+import AdminAddProduct from "./pages/AdminAddProduct";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -76,9 +77,9 @@ export default function App() {
           <Route path="/checkout" element={<Checkout />} /> 
 
           {/* Order Success */}
-          <Route path="/checkout/success" element={<OrderSuccess />} />   
+          <Route path="/checkout/success" element={<OrderSuccess />} />  
 
-          {/* Order Fallida */}
+          {/* Order Failure */}
           <Route path="/checkout/fallo" element={<OrderFailure />} />
 
           {/* Categorías */}
@@ -86,6 +87,7 @@ export default function App() {
 
           {/* Admin - Usuarios */}
           <Route path="/admin/usuarios" element={<AdminUsers />} />
+          <Route path="/admin/agregar-producto" element={<AdminAddProduct />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
