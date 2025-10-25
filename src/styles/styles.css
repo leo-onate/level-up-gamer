@@ -197,3 +197,32 @@ a:hover {
 .producto-card .btn {
   z-index: 2;
 }
+
+
+.admin-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #ffffff;
+  color: #222;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  min-width: 180px;
+  z-index: 2000;
+  padding: 6px 0;
+}
+
+.admin-dropdown .dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.admin-dropdown .dropdown-item:hover {
+  background: #f1f1f1;
+}
