@@ -46,7 +46,7 @@ export default function LoggedNavbar() {
                 Carrito🛒
               </NavLink>
             </li>
-
+            
             {user && (
               <li className="nav-item ms-3 d-flex align-items-center text-light">
                 <span className="me-2">
@@ -57,7 +57,7 @@ export default function LoggedNavbar() {
                 </button>
               </li>
             )}
-
+            {/* Si el usuario es admin tendra nuevas opciones visibles*/}
             {isAdmin && (
               <li className="nav-item ms-3" style={{ position: "relative" }}>
                 <button
