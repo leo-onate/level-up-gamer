@@ -20,6 +20,7 @@ import Ofertas from "./pages/Ofertas";
 import Checkout from "./pages/Checkout";           // <-- nuevo
 import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
 import OrderFailure from "./pages/OrderFailure";
+import AdminUsers from "./pages/AdminUsers";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -82,6 +83,9 @@ export default function App() {
 
           {/* Categorías */}
           <Route path="/categoria/:categoria" element={<Categoria />} />
+
+          {/* Admin - Usuarios */}
+          <Route path="/admin/usuarios" element={<AdminUsers />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
