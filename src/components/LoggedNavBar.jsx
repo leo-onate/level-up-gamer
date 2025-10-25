@@ -12,7 +12,7 @@ export default function LoggedNavbar() {
     navigate("/login");
   };
 
-  const isAdmin = !!user && user.nombre === "admin";
+  const isAdmin = user?.nombre === "admin"; // tal como pediste
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -74,7 +74,18 @@ export default function LoggedNavbar() {
                       className="dropdown-item"
                       onClick={(e) => {
                         e.preventDefault();
-                        // por ahora no hace nada
+                        setAdminOpen(false);
+                        navigate("/admin/usuarios");
+                      }}
+                    >
+                      Administrar usuarios
+                    </button>
+
+                    <button
+                      className="dropdown-item"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        // por ahora no hace nada (Agregar producto)
                       }}
                     >
                       Agregar producto
