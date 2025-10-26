@@ -1,6 +1,5 @@
-/* ======== ESTILOS GENERALES ======== */
 body {
-  background-color: #0b0c10;
+  background-color: #010710;
   color: #ffffff;
   font-family: "Roboto", sans-serif;
   margin: 0;
@@ -21,7 +20,6 @@ a:hover {
   color: #45a29e;
 }
 
-/* ======== NAVBAR ======== */
 .navbar {
   box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
@@ -35,7 +33,6 @@ a:hover {
   font-weight: bold;
 }
 
-/* ======== LOGIN / REGISTRO ======== */
 .login-container {
   background-color: #1f2833;
   border-radius: 10px;
@@ -88,12 +85,10 @@ a:hover {
   color: #000;
 }
 
-/* ======== TEXTOS ======== */
 .form-text, .invalid-feedback {
   font-size: 0.9rem;
 }
 
-/* ======== HOME ======== */
 .home-title {
   margin-top: 80px;
   text-align: center;
@@ -107,7 +102,6 @@ a:hover {
   color: #c5c6c7;
 }
 
-/* ======== BOTONES Y LINKS ======== */
 .btn-primary {
   background-color: #45a29e;
   border-color: #45a29e;
@@ -119,13 +113,33 @@ a:hover {
 }
 
 .btn-success {
-  background-color: #2ecc71;
-  border-color: #27ae60;
+  background-color: #51EB44;
+  border-color: #51EB44;
 }
 .btn-success:hover {
   background-color: #45a29e;
   border-color: #45a29e;
   color: #000;
+}
+
+.category-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  padding: 0.2rem 0.4rem;
+}
+.category-btn:hover,
+.category-btn:focus,
+.category-btn.active {
+  color: #66fcf1 !important;
+  background: transparent !important;
+  text-decoration: none;
+}
+
+.back-arrow {
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-weight: 600;
 }
 
 
@@ -153,20 +167,57 @@ a:hover {
 
 
 .producto-card {
-  max-width: 320px;       
+  width: 300px;       
   height: 100%;            
   display: flex;
   flex-direction: column;  
   overflow: hidden;
-  min-height: 380px; 
+  margin: 1rem;
 }
 
+.producto-card.card {
+  background-color: #212529 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 0;
+}
+
+.producto-card .card-img-container {
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
 
 .producto-card .card-img-top {
-  width: 100%;
+  width: 300px;
   height: 200px;          
-  object-fit: cover;       
+  object-fit: contain;       
   object-position: center; 
+}
+
+.producto-card .card-body,
+.producto-card .card-title,
+.producto-card .card-text,
+.producto-card small {
+  color: #fff !important;
+  background-color: #212529;
+}
+
+.producto-card .card-body {
+  padding: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.producto-card a {
+  color: #66fcf1;
+}
+
+.producto-card .btn {
+  color: #000;
 }
 
 
@@ -189,11 +240,38 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto; 
+  margin-top: 1rem;
   gap: 8px;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
-
 
 .producto-card .btn {
   z-index: 2;
+}
+.cart-item {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+.cart-item img {
+  border-radius: 4px;
+  background: #000;
+}
+.cart-item strong,
+.cart-item .text-muted,
+.cart-item div {
+  color: #fff !important;
+}
+
+/* Botón 'Seguir comprando' personalizado */
+.btn-continue {
+  background-color: #1F67E0 !important;
+  border-color: #1F67E0 !important;
+  color: #fff !important;
+}
+.btn-continue:hover {
+  background-color: #154fb5 !important;
+  border-color: #154fb5 !important;
+  color: #fff !important;
 }
