@@ -3,9 +3,9 @@ import { formatDate } from "../data/blogs";
 
 export default function BlogCard({ post }) {
   return (
-    <div className="card bg-dark text-white h-100">
+    <div className="card bg-dark text-white h-100 blog-card">
       {post.cover ? (
-        <img src={post.cover} className="card-img-top" alt={post.title} />
+        <img src={post.cover} className="card-img-top blog-img" alt={post.title} />
       ) : null}
       <div className="card-body d-flex flex-column">
         <span className="badge bg-secondary mb-2">{post.category}</span>

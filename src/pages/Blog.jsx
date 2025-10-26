@@ -29,7 +29,7 @@ export default function Blog() {
       {/* filtros simples */}
       <div className="d-flex flex-column flex-md-row gap-2 mb-3">
         <input
-          className="form-control"
+          className="form-control blog-search"
           placeholder="Buscar (título o resumen)..."
           value={q}
           onChange={(e) => setQ(e.target.value)}

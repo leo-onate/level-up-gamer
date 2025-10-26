@@ -117,9 +117,12 @@ a:hover {
   border-color: #51EB44;
 }
 .btn-success:hover {
-  background-color: #45a29e;
-  border-color: #45a29e;
+  /* keep same green but slightly darker on hover */
+  background-color: #51EB44;
+  border-color: #51EB44;
+  filter: brightness(0.9);
   color: #000;
+  transition: filter 120ms linear;
 }
 
 .category-btn {
@@ -142,7 +145,6 @@ a:hover {
   font-weight: 600;
 }
 
-
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -164,7 +166,6 @@ a:hover {
     padding: 25px 20px;
   }
 }
-
 
 .producto-card {
   width: 300px;       
@@ -236,16 +237,235 @@ a:hover {
 }
 
 
-.producto-card .product-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  gap: 8px;
-  padding-top: 0.5rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+ .producto-card .product-actions {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 1rem;
+   gap: 8px;
+   padding-top: 0.5rem;
+   border-top: 1px solid rgba(255,255,255,0.1);
+ }
+ 
+ .producto-card .btn {
+   z-index: 2;
+ }
+
+/* Offer price styling */
+.producto-card .price-original {
+  color: rgba(255,255,255,0.6);
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+}
+.producto-card .current-price {
+  color: #fff;
+  font-weight: 700;
+}
+.producto-card .offer-badge {
+  background-color: #e03e3e;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+/* Blog search input styling: dark background, white square borders and white text */
+.blog-search {
+  background-color: #010710 !important;
+  color: #fff !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 0 !important; /* square corners */
+  box-shadow: none !important;
+}
+.blog-search:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ffffff !important;
+}
+.blog-search::placeholder {
+  color: rgba(255,255,255,0.7) !important;
 }
 
-.producto-card .btn {
-  z-index: 2;
+.blog-card .blog-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.blog-card .card-body {
+  background-color: #212529;
+}
+
+/* Blog category badge: purple */
+.blog-card .badge.bg-secondary {
+  background-color: #7240DB !important;
+  color: #fff !important;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.375rem;
+}
+
+
+.cart-item input {
+  background-color: #1a1e21;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Cart action buttons */
+.btn-outline-secondary {
+  color: #ff3b3b !important;
+  border-color: #ff3b3b !important;
+  background: transparent !important;
+}
+.btn-outline-secondary:hover {
+  color: #fff !important;
+  background-color: #ff3b3b !important;
+}
+/* Badge used in single post header */
+.blog-badge {
+  background-color: #7240DB !important;
+  color: #fff !important;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.375rem;
+}
+.post-cover-container {
+  /* removed background to show image without extra box */
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border-radius: 0;
+  max-width: 100%;
+}
+.post-cover {
+  max-width: 100%;
+  width: 700px; /* slightly larger */
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Post date color */
+.post-date {
+  color: #fff !important;
+}
+
+/* Cart styling */
+.cart-item {
+  background-color: #212529 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.cart-item img {
+  border-radius: 4px;
+  background: #212529;
+}
+
+.cart-item strong,
+.cart-item .text-muted,
+.cart-item div {
+  color: #fff !important;
+}
+
+.cart-item input {
+  background-color: #1a1e21;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Cart action buttons */
+.btn-outline-secondary {
+  color: #ff3b3b !important;
+  border-color: #ff3b3b !important;
+  background: transparent !important;
+}
+
+.btn-outline-secondary:hover {
+  color: #fff !important;
+  background-color: #ff3b3b !important;
+}
+
+.btn-continue {
+  background-color: #66fcf1 !important;
+  border-color: #66fcf1 !important;
+  color: #212529 !important;
+  font-weight: 600 !important;
+}
+
+.btn-continue:hover {
+  background-color: #45a29e !important;
+  border-color: #45a29e !important;
+  color: #212529 !important;
+}
+
+/* Ensure category buttons keep their intended style even when btn-outline-secondary is re-styled elsewhere */
+.category-btn.btn-outline-secondary,
+.btn.category-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  padding: 0.2rem 0.4rem;
+}
+.category-btn.btn-outline-secondary:hover,
+.btn.category-btn:hover,
+.category-btn.btn-outline-secondary:focus,
+.btn.category-btn:focus,
+.category-btn.btn-outline-secondary.active,
+.btn.category-btn.active {
+  color: #66fcf1 !important;
+  background: transparent !important;
+  text-decoration: none;
+}
+
+
+/* Container for the post text (leer más) */
+.post-content-container {
+  background-color: #212529;
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* Product detail page styling */
+.product-detail-card {
+  background-color: #212529;
+  color: #fff;
+  padding: 2rem;
+  border: none;
+}
+
+.detail-content {
+  padding: 0 1.5rem;
+}
+
+.detail-content h3 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.detail-content p {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.price-block {
+  margin: 1rem 0;
+}
+
+.price-normal {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 1rem 0;
 }

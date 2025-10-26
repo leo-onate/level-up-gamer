@@ -27,18 +27,27 @@ export default function ProductDetail() {
 
   return (
     <div className="container mt-4">
-      <button className="btn btn-link mb-3" onClick={() => navigate(-1)}>← Volver</button>
-      <div className="card">
+      <button className="btn category-btn mb-3" onClick={() => navigate(-1)}>
+        <span className="back-arrow">←</span> Volver
+      </button>
+      <div className="product-detail-card">
         <div className="row g-0 align-items-center">
           <div className="col-md-4">
-            <img src={src} className="img-fluid" alt={product.nombre} style={{ width: "100%", objectFit: "contain" }} />
+            <img src={src} className="img-fluid" alt={product.nombre} />
           </div>
           <div className="col-md-8">
-            <div className="card-body">
-              <h3 className="card-title">{product.nombre}</h3>
-              <p className="card-text">{product.descripcion}</p>
-              <h4>${product.precio}</h4>
-              {product.oferta && <span className="badge bg-success">Oferta</span>}
+            <div className="detail-content">
+              <h3>{product.nombre}</h3>
+              <p>{product.descripcion}</p>
+              {product.oferta ? (
+                <div className="price-block">
+                  <small className="price-original">${(product.precio / 0.6).toFixed(2)}</small>
+                  <strong className="current-price">${product.precio}</strong>
+                  <span className="badge bg-danger ms-2 offer-badge">-40% OFF</span>
+                </div>
+              ) : (
+                <h4 className="price-normal">${product.precio}</h4>
+              )}
             </div>
           </div>
         </div>
