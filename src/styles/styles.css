@@ -249,29 +249,3 @@ a:hover {
 .producto-card .btn {
   z-index: 2;
 }
-.cart-item {
-  background-color: #000 !important;
-  color: #fff !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-}
-.cart-item img {
-  border-radius: 4px;
-  background: #000;
-}
-.cart-item strong,
-.cart-item .text-muted,
-.cart-item div {
-  color: #fff !important;
-}
-
-/* Botón 'Seguir comprando' personalizado */
-.btn-continue {
-  background-color: #1F67E0 !important;
-  border-color: #1F67E0 !important;
-  color: #fff !important;
-}
-.btn-continue:hover {
-  background-color: #154fb5 !important;
-  border-color: #154fb5 !important;
-  color: #fff !important;
-}
