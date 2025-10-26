@@ -1,10 +1,17 @@
 import { NavLink } from "react-router-dom";
+import { logout } from "../services/auth";
 
 export default function Navbar() {
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    logout();
+    window.location.href = '/';
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <NavLink to="/" className="navbar-brand">
+        <NavLink to="/" className="navbar-brand" onClick={handleLogoClick}>
           LEVEL-UP GAMER
         </NavLink>
 

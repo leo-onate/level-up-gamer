@@ -17,7 +17,7 @@ export default function LoggedNavbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <span className="navbar-brand">LEVEL-UP GAMER</span>
+        <NavLink to="/inicio" className="navbar-brand">LEVEL-UP GAMER</NavLink>
 
         <div>
           <ul className="navbar-nav ms-auto">

@@ -43,6 +43,15 @@ export const products = [
     descripcion: "Secuela del videojuego Hollow Knight.",
     oferta: false,
     categoria: "Juegos"
+  },
+  {
+    id: "p6",
+    nombre: "MousePad Gamer Ultra",
+    imagen:"mousepad.jpg",
+    precio: 14.99,
+    descripcion: "Mousepad Gamer con superficie antideslizante.",
+    oferta: true,
+    categoria: "Accesorios"
   }
 
   // añade más productos jeshu...

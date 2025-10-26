@@ -22,7 +22,7 @@ export default function Carrito() {
       <h2>Carrito</h2>
       <div className="list-group">
         {items.map(it => (
-          <div key={it.id} className="list-group-item d-flex align-items-center justify-content-between">
+          <div key={it.id} className="list-group-item cart-item d-flex align-items-center justify-content-between">
             <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
               <img
                 src={
@@ -50,7 +50,7 @@ export default function Carrito() {
       <div className="mt-3 d-flex justify-content-between align-items-center">
         <div>
           <button className="btn btn-outline-secondary me-2" onClick={() => clearCart()}>Vaciar carrito</button>
-          <button className="btn btn-secondary" onClick={() => navigate(-1)}>Seguir comprando</button>
+          <button className="btn btn-continue" onClick={() => navigate(-1)}>Seguir comprando</button>
         </div>
 
         <div>

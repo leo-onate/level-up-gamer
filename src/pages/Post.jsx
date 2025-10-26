@@ -23,19 +23,26 @@ export default function Post() {
   return (
     <div className="container my-4">
       <div className="mb-3">
-        <Link to="/blogs" className="btn btn-outline-light btn-sm">← Volver al blog</Link>
+        <Link to="/blogs" className="btn category-btn mb-3">
+          <span className="back-arrow" aria-hidden>←</span>
+          Volver al blog
+        </Link>
       </div>
 
-      <span className="badge bg-secondary mb-2">{post.category}</span>
+      <span className="badge bg-secondary mb-2 blog-badge">{post.category}</span>
       <h2>{post.title}</h2>
-      <small className="text-muted">{formatDate(post.date)}</small>
+      <small className="post-date">{formatDate(post.date)}</small>
 
       {post.cover ? (
-        <img src={post.cover} alt={post.title} className="img-fluid rounded my-3" />
+        <div className="post-cover-container my-3">
+          <img src={post.cover} alt={post.title} className="post-cover" />
+        </div>
       ) : null}
 
-      <div className="lead">
-        {paragraphs.map((line, i) => <p key={i}>{line}</p>)}
+      <div className="post-content-container">
+        <div className="lead">
+          {paragraphs.map((line, i) => <p key={i}>{line}</p>)}
+        </div>
       </div>
     </div>
   );
