@@ -91,6 +91,9 @@ export default function App() {
           <Route path="/admin/agregar-producto" element={<AdminAddProduct />} />
           <Route path="/admin/productos" element={<AdminProducts />} />
 
+          {/* Perfil de usuario */}
+          <Route path="/profile" element={<Profile />} />
+
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
