@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts } from '../services/productService';
 import { getUsers } from '../services/userService';
+import { getOrders } from '../services/orderService';
 import images from '../services/imageLoader';
 // import './AdminDashboard.css';
 { /* eliminado import local de CSS; estilos ahora están en src/styles/styles.css */ }
@@ -9,19 +10,22 @@ import images from '../services/imageLoader';
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
     async function loadData() {
       try {
-        const [prods, usrs] = await Promise.all([
+        const [prods, usrs, ords] = await Promise.all([
           getProducts(),
           getUsers(),
+          Promise.resolve(getOrders()), // getOrders() es síncrono si usa localStorage
         ]);
         if (!mounted) return;
         setProducts(Array.isArray(prods) ? prods : []);
         setUsers(Array.isArray(usrs) ? usrs : []);
+        setOrders(Array.isArray(ords) ? ords : []);
       } catch (err) {
         console.error('AdminDashboard load error', err);
         if (mounted) {
@@ -78,14 +82,14 @@ export default function AdminDashboard() {
       <div className="row mb-3 gx-3">
         <div className="col-sm-4">
           <div className="metric-card p-3">
-            <div className="metric-label">Productos</div>
+            <div className="metric-label">Productos en catalogo</div>
             <div className="metric-value">{products.length}</div>
           </div>
         </div>
 
         <div className="col-sm-4">
           <div className="metric-card p-3">
-            <div className="metric-label">Cuentas</div>
+            <div className="metric-label">Cuentas creadas</div>
             <div className="metric-value">{users.length}</div>
           </div>
         </div>
@@ -93,8 +97,11 @@ export default function AdminDashboard() {
         <div className="col-sm-4">
           <div className="metric-card p-3">
             <div className="metric-label">Boletas</div>
-            <div className="metric-value small muted">No hay boletas creadas</div>
-            <div className="metric-note">Cuando exista historial de ventas aparecerá aquí el conteo.</div>
+            <div className="metric-value">{orders.length}</div>
+            <div className="metric-note">
+              {orders.length === 0 ? 'No hay boletas creadas' : `${orders.length} boleta(s) registradas`}
+            </div>
+            
           </div>
         </div>
       </div>
@@ -117,11 +124,7 @@ export default function AdminDashboard() {
                   <div className="recent-name">{p.nombre || p.title || 'Sin nombre'}</div>
                   <div className="recent-meta">{p.precio ? `\$${p.precio}` : (p.price ? `\$${p.price}` : '')}</div>
                 </div>
-                {p.id ? (
-                  <Link to={`/product/${p.id}`} className="btn btn-sm btn-outline-primary ms-auto">Ver</Link>
-                ) : (
-                  <button className="btn btn-sm btn-outline-secondary ms-auto" disabled>Ver</button>
-                )}
+                
               </li>
             ))}
           </ul>
