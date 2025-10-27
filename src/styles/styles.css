@@ -469,3 +469,110 @@ a:hover {
   font-size: 1.5rem;
   margin: 1rem 0;
 }
+
+/* AdminDashboard moved styles */
+.admin-dashboard {
+  font-family: inherit; 
+  color: var(--text-color, #e6eef8);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+}
+
+.ad-title {
+  color: var(--brand-color, #4fc3f7);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  font-size: 1.05rem;
+  margin-bottom: 0;
+}
+.ad-sub {
+  color: var(--muted-color, #99a3b3);
+  font-size: 0.85rem;
+}
+
+.metric-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border-radius: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.metric-label {
+  color: var(--muted-color, #99a3b3);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+.metric-value {
+  color: var(--brand-color, #4fc3f7);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.metric-value.small {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted-color, #b0b9c4);
+}
+.metric-note {
+  color: var(--muted-color, #9aa6b6);
+  font-size: 0.75rem;
+  margin-top: 6px;
+}
+
+.recent-title {
+  color: var(--text-color, #e6eef8);
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+.recent-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.01);
+}
+.product-thumb {
+  width: 56px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+.recent-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.recent-name {
+  color: var(--text-color, #e6eef8);
+  font-weight: 600;
+}
+.recent-meta {
+  color: var(--muted-color, #9aa6b6);
+  font-size: 0.85rem;
+}
+
+.recent-item .btn {
+  margin-left: auto;
+}
+
+/* ajustes responsivos */
+@media (max-width: 576px) {
+  .metric-value {
+    font-size: 1.25rem;
+  }
+  .product-thumb {
+    width: 48px;
+    height: 40px;
+  }
+}
