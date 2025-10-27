@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
 
@@ -14,9 +14,13 @@ export default function Catalogo() {
       <div className="mb-3">
         <strong>Categorías: </strong>
         {categorias.map(cat => (
-          <Link key={cat} to={`/categoria/${encodeURIComponent(cat)}`} className="btn btn-outline-secondary btn-sm me-2">
+          <NavLink
+            key={cat}
+            to={`/categoria/${encodeURIComponent(cat)}`}
+            className={({ isActive }) => `btn btn-outline-secondary btn-sm me-2 category-btn ${isActive ? 'active' : ''}`}
+          >
             {cat}
-          </Link>
+          </NavLink>
         ))}
       </div>
       <div className="row">

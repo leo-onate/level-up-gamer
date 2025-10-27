@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
 
@@ -11,6 +11,10 @@ export default function Categoria() {
   return (
     <div className="mt-4">
       <h2>Categoría: {decoded || "(sin categoría)"}</h2>
+      <Link to="/catalogo" className="btn category-btn mb-3">
+        <span className="back-arrow" aria-hidden>←</span>
+        Volver al Catálogo
+      </Link>
       <div className="row">
         {productos.map(p => (
           <div key={p.id} className="col-12 col-sm-6 col-md-4 mb-3">
