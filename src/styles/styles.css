@@ -117,7 +117,6 @@ a:hover {
   border-color: #51EB44;
 }
 .btn-success:hover {
-  /* keep same green but slightly darker on hover */
   background-color: #51EB44;
   border-color: #51EB44;
   filter: brightness(0.9);
@@ -250,8 +249,6 @@ a:hover {
  .producto-card .btn {
    z-index: 2;
  }
-
-/* Offer price styling */
 .producto-card .price-original {
   color: rgba(255,255,255,0.6);
   text-decoration: line-through;
@@ -267,12 +264,11 @@ a:hover {
   font-weight: 700;
   font-size: 0.75rem;
 }
-/* Blog search input styling: dark background, white square borders and white text */
 .blog-search {
   background-color: #010710 !important;
   color: #fff !important;
   border: 1px solid #ffffff !important;
-  border-radius: 0 !important; /* square corners */
+  border-radius: 0 !important;
   box-shadow: none !important;
 }
 .blog-search:focus {
@@ -335,7 +331,6 @@ a:hover {
   border-radius: 0.375rem;
 }
 .post-cover-container {
-  /* removed background to show image without extra box */
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -346,18 +341,72 @@ a:hover {
 }
 .post-cover {
   max-width: 100%;
-  width: 700px; /* slightly larger */
+  width: 700px;
   height: auto;
   object-fit: contain;
   display: block;
 }
 
-/* Post date color */
 .post-date {
   color: #fff !important;
 }
+ 
+/* Admin dark container + admin button styles */
+.dark-container {
+  background-color: #212529;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
 
-/* Cart styling */
+/* Table inside dark container: let row backgrounds show through */
+.dark-container .table {
+  color: #fff;
+  background: transparent;
+}
+.dark-container .table td,
+.dark-container .table th {
+  background: transparent !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+/* Slight striped rows for readability */
+.dark-container .table.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(255,255,255,0.02) !important;
+}
+.dark-container .table.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: rgba(255,255,255,0.04) !important;
+}
+
+/* Admin action buttons */
+.btn-view {
+  background-color: #FF4D2E;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.btn-view:hover {
+  background-color: #E04325;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: #FF2600;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.btn-delete:hover {
+  background-color: #E02000;
+  color: #fff;
+}
+
+/* Small button sizing for consistency */
+.btn-sm.btn-view, .btn-sm.btn-delete {
+  padding: .25rem .5rem;
+  font-size: .8rem;
+}
+
 .cart-item {
   background-color: #212529 !important;
   color: #fff !important;
@@ -383,7 +432,6 @@ a:hover {
   padding: 0.25rem 0.5rem;
 }
 
-/* Cart action buttons */
 .btn-outline-secondary {
   color: #ff3b3b !important;
   border-color: #ff3b3b !important;
@@ -408,7 +456,6 @@ a:hover {
   color: #212529 !important;
 }
 
-/* Ensure category buttons keep their intended style even when btn-outline-secondary is re-styled elsewhere */
 .category-btn.btn-outline-secondary,
 .btn.category-btn {
   background: transparent !important;
@@ -428,7 +475,6 @@ a:hover {
 }
 
 
-/* Container for the post text (leer más) */
 .post-content-container {
   background-color: #212529;
   color: #fff;
@@ -437,7 +483,6 @@ a:hover {
   margin-top: 1rem;
 }
 
-/* Product detail page styling */
 .product-detail-card {
   background-color: #212529;
   color: #fff;

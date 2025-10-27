@@ -39,7 +39,8 @@ export default function AdminUsers() {
 
   return (
     <div className="container mt-4">
-      <h2>Administrar usuarios</h2>
+      <div className="dark-container">
+        <h2>Administrar usuarios</h2>
 
       {users.length === 0 ? (
         <p>No hay usuarios.</p>
@@ -107,8 +108,8 @@ export default function AdminUsers() {
                       <td>{u.contrasena ? "•••••••" : ""}</td>
                       <td>{u.fechaNacimiento || ""}</td>
                       <td>
-                        <div className="d-flex justify-content-end">
-                          <button className="btn btn-sm btn-outline-primary" onClick={() => handleEditClick(idx)}>
+                        <div className="d-flex justify-content-end gap-2">
+                          <button className="btn btn-sm btn-view" onClick={() => handleEditClick(idx)}>
                             Editar
                           </button>
                         </div>
@@ -122,8 +123,9 @@ export default function AdminUsers() {
         </div>
       )}
 
-      <div className="mt-3">
-        <Link to="/catalogo" className="btn btn-secondary me-2">Volver al catálogo</Link>
+        <div className="mt-3">
+          <Link to="/catalogo" className="btn btn-secondary me-2">Volver al catálogo</Link>
+        </div>
       </div>
     </div>
   );
