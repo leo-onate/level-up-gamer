@@ -25,7 +25,8 @@ export default function AdminAddProduct() {
     if (!form.nombre.trim()) return setError("Nombre requerido.");
     if (form.precio === "" || isNaN(Number(form.precio))) return setError("Precio válido requerido.");
 
-    addProduct({
+    // addProduct devuelve el producto creado incluyendo su id
+    const nuevo = addProduct({
       nombre: form.nombre.trim(),
       imagen: form.imagen.trim(),
       precio: Number(form.precio),
@@ -34,7 +35,13 @@ export default function AdminAddProduct() {
       categoria: form.categoria.trim(),
     });
 
-    
+    // navegar al detalle del producto creado para ver el ID (no editable)
+    if (nuevo && nuevo.id) {
+      navigate(`/catalogo/${nuevo.id}`);
+      return;
+    }
+
+    // fallback
     navigate("/catalogo");
   };
 

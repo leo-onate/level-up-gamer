@@ -19,15 +19,18 @@ function writeStorage(list) {
   } catch {}
 }
 
+
 export function getProducts() {
   const stored = readStorage();
-  return stored !== null ? stored : [...initialProducts];
+  if (!stored) return [...initialProducts];
+  const seen = new Set(stored.map((p) => String(p.id)));
+  const merged = [...stored, ...initialProducts.filter((p) => !seen.has(String(p.id)))];
+  return merged;
 }
 
 export function saveProducts(list) {
   writeStorage(list);
 }
-
 
 function nextId() {
   try {
@@ -41,7 +44,7 @@ function nextId() {
 }
 
 export function addProduct(product) {
-  const list = getProducts();
+  const list = readStorage() || [...initialProducts];
   const newProduct = {
     id: product.id || nextId(),
     nombre: product.nombre || "",
@@ -57,17 +60,17 @@ export function addProduct(product) {
 }
 
 export function getProductById(id) {
-  return getProducts().find(p => p.id === id) || null;
+  const lookup = String(id);
+  return getProducts().find((p) => String(p.id) === lookup) || null;
 }
 
-/* Opcionales para el futuro */
 export function updateProduct(updated) {
-  const list = getProducts().map(p => (p.id === updated.id ? { ...p, ...updated } : p));
+  const list = getProducts().map((p) => (String(p.id) === String(updated.id) ? { ...p, ...updated } : p));
   saveProducts(list);
   return updated;
 }
 
 export function deleteProduct(id) {
-  const list = getProducts().filter(p => p.id !== id);
+  const list = getProducts().filter((p) => String(p.id) !== String(id));
   saveProducts(list);
 }
