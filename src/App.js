@@ -22,6 +22,7 @@ import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
 import OrderFailure from "./pages/OrderFailure";
 import AdminUsers from "./pages/AdminUsers";
 import AdminAddProduct from "./pages/AdminAddProduct";
+import AdminProducts from "./pages/AdminProducts";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -88,6 +89,7 @@ export default function App() {
           {/* Admin - Usuarios */}
           <Route path="/admin/usuarios" element={<AdminUsers />} />
           <Route path="/admin/agregar-producto" element={<AdminAddProduct />} />
+          <Route path="/admin/productos" element={<AdminProducts />} />
 
           {/* Cualquier otra ruta redirige al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
