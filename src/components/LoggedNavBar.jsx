@@ -86,7 +86,7 @@ export default function LoggedNavbar() {
                       onClick={(e) => {
                         e.preventDefault();
                         setAdminOpen(false);
-                        navigate("/admin/productos"); // <-- nueva ruta de administración de productos
+                        navigate("/admin/productos"); 
                       }}
                     >
                       Administrar productos
@@ -101,6 +101,17 @@ export default function LoggedNavbar() {
                       }}
                     >
                       Agregar producto
+                    </button>
+
+                    <button
+                      className="dropdown-item"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setAdminOpen(false);
+                        navigate("/admin/reportes");
+                      }}
+                    >
+                      Reportes
                     </button>
                   </div>
                 )}
