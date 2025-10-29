@@ -108,6 +108,17 @@ export default function LoggedNavbar() {
                       onClick={(e) => {
                         e.preventDefault();
                         setAdminOpen(false);
+                        navigate("/admin/boletas");
+                      }}
+                    >
+                      Boletas
+                    </button>
+
+                    <button
+                      className="dropdown-item"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setAdminOpen(false);
                         navigate("/admin/reportes");
                       }}
                     >

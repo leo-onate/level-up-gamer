@@ -25,6 +25,7 @@ import AdminUsers from "./pages/AdminUsers";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import AdminProducts from "./pages/AdminProducts";
 import AdminReports from "./pages/AdminReports";
+import AdminBoletas from "./pages/AdminBoletas";
 
 // Estilos globales
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -99,6 +100,7 @@ export default function App() {
           <Route path="/admin/agregar-producto" element={<AdminAddProduct />} />
           <Route path="/admin/productos" element={<AdminProducts />} />
           <Route path="/admin/reportes" element={<AdminReports />} />
+          <Route path="/admin/boletas" element={<AdminBoletas />} />
 
           {/* Perfil de usuario */}
           <Route path="/profile" element={<Profile />} />
