@@ -1,4 +1,5 @@
 import React, { use, useEffect, useState } from "react";
+import avatarPlaceholder from "../assets/img/perro.jpeg";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../services/auth";
 import { getUsers, saveUsers } from "../services/userService";
@@ -91,9 +92,14 @@ export default function Profile() {
 
   return (
     <div className="container mt-4" style={{ maxWidth: 760 }}>
-      <h2>Mi perfil</h2>
+      <div className="dark-container">
+        <div className="d-flex justify-content-center mb-3">
+          <img src={avatarPlaceholder} alt="Avatar" className="profile-avatar" />
+        </div>
 
-      <form onSubmit={onSave} className="row g-3 mt-2">
+        <h2 className="text-center">Mi perfil</h2>
+
+        <form onSubmit={onSave} className="row g-3 mt-2 text-start">
         <div className="col-12">
           <label className="form-label">Nombre</label>
           <input className="form-control" value={form.nombre} onChange={handleChange("nombre")} />
@@ -121,7 +127,8 @@ export default function Profile() {
         </div>
 
         {msg && <div className="col-12"><div className="alert alert-info p-2 mt-2">{msg}</div></div>}
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
