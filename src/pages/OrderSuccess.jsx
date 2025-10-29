@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { saveOrder, getOrders } from '../services/orderService';
 
-export default function OrderSuccess() {
+export default function OrderSuccess(props) {
   let order = null;
   try {
     order = JSON.parse(localStorage.getItem("lastOrder"));
   } catch {
     order = null;
   }
+
+  // Guarda la boleta usando el servicio centralizado y evita duplicados por id/displayId
+  useEffect(() => {
+    if (!order) return;
+    try {
+      const existing = getOrders();
+      const exists = existing.some(o => (
+        (o.id && order.id && o.id === order.id) ||
+        (o.displayId && order.displayId && o.displayId === order.displayId)
+      ));
+      if (!exists) {
+        const nuevaBoleta = {
+          id: order.id || order.displayId || `ord-${Date.now()}`,
+          displayId: order.displayId,
+          total: order.total || 0,
+          items: order.items || [],
+          customer: order.customer || {},
+          date: new Date().toISOString(),
+          // puedes agregar más campos si los necesitas
+        };
+        saveOrder(nuevaBoleta);
+      }
+    } catch (err) {
+      console.error('OrderSuccess: error guardando boleta', err);
+    }
+  }, [order]);
 
   if (!order) {
     return (
