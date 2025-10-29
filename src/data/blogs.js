@@ -26,9 +26,9 @@ export const blogPosts = [
     excerpt: "Nuestro resumen mensual de los mejores juegos free-to-play.",
     content: `
     Este mes destacan:
-    - **The Finals** (PC/Consolas): ritmo rápido, equipos, destructibilidad.
-    - **Warframe** (PC/Consolas): acción cooperativa, progreso profundo.
-    - **Rocket League**: ideal para jugar con amigos y progresar en mecánicas.
+    - Fortnite (PC/Consolas): ritmo rápido, equipos, destructibilidad.
+    - Warframe (PC/Consolas): acción cooperativa, progreso profundo.
+    - Rocket League: ideal para jugar con amigos y progresar en mecánicas.
     `
   },
   {
@@ -40,10 +40,12 @@ export const blogPosts = [
     excerpt: "Sensor, peso, forma y switches: lo que realmente importa.",
     content: `
     Probamos 5 modelos populares:
-    - Modelo A: liviano, ideal claw grip.
-    - Modelo B: batería duradera, buen software.
-    - Modelo C: económicos y rendidores.
-    Conclusión: compra por **forma** y **peso**, no por RGB.
+    - Modelo Logitech G Pro: liviano, ideal claw grip.
+    - Modelo Razer DeathAdder: batería duradera, buen software.
+    - Modelo SteelSeries Rival 3: económicos y rendidores.
+    -Modelo Corsair M65: peso ajustable, precisión.
+    - Modelo HyperX Pulsefire: buena ergonomía, RGB personalizable.
+    Conclusión: compra por forma y peso, no por RGB.
     `
   }
 ];
