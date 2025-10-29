@@ -355,6 +355,16 @@ a:hover {
   border: 1px solid rgba(255,255,255,0.06);
 }
 
+/* Avatar used in profile page */
+.profile-avatar{
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #45a29e;
+  background-color: #0b0c10;
+}
+
 .dark-container .table {
   color: #fff;
   background: transparent;
