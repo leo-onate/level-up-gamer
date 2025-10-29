@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { getProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
+import { useCart } from "../context/CartContext";
 
 export default function Catalogo() {
-  const productos = getProducts();
+  const { products } = useCart();
 
-  const categorias = [...new Set(productos.map(p => p.categoria))].filter(Boolean);
+  const categorias = [...new Set(products.map(p => p.categoria))].filter(Boolean);
 
   return (
     <div className="mt-4">
@@ -24,7 +24,7 @@ export default function Catalogo() {
         ))}
       </div>
       <div className="row">
-        {productos.map(p => (
+        {products.map(p => (
           <div key={p.id} className="col-12 col-sm-6 col-md-4 mb-3">
             <ProductCard product={p} />
           </div>

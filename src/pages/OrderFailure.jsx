@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function OrderFailure() {
+  const { clearCart } = useCart();
+
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
+
   let order = null;
   try {
     order = JSON.parse(localStorage.getItem("lastOrder"));
@@ -22,8 +29,8 @@ export default function OrderFailure() {
       )}
 
       <div className="mt-3">
-        <Link to="/carrito" className="btn btn-primary me-2">Volver al carrito</Link>
-        <Link to="/catalogo" className="btn btn-outline-secondary">Ir al catálogo</Link>
+        <p>El carrito ha sido vaciado y el stock de los productos ha sido restaurado.</p>
+        <Link to="/catalogo" className="btn btn-primary">Ir al catálogo</Link>
       </div>
     </div>
   );

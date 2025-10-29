@@ -6,7 +6,8 @@
     "precio": 59.99,
     "descripcion": "Auriculares con micrófono y sonido surround.",
     "oferta": false,
-    "categoria": "Accesorios"
+    "categoria": "Accesorios",
+    "stock": 10
   },
   {
     "id": "p2",
@@ -15,7 +16,8 @@
     "precio": 129.99,
     "descripcion": "Teclado mecánico RGB con switches azules.",
     "oferta": true,
-    "categoria": "Accesorios"
+    "categoria": "Accesorios",
+    "stock": 4
   },
   {
     "id": "p3",
@@ -24,7 +26,8 @@
     "precio": 249.95,
     "descripcion": "Silla ergonómica con soporte lumbar ajustable.",
     "oferta": false,
-    "categoria": "Sillas"
+    "categoria": "Sillas",
+    "stock": 3
   },
   {
     "id": "p4",
@@ -33,7 +36,8 @@
     "precio": 20.99,
     "descripcion": "Moneda de juego para Umamusume Pretty Derby.",
     "oferta": false,
-    "categoria": "Adicionales"
+    "categoria": "Adicionales",
+    "stock": 0
   },
   {
     "id": "p5",
@@ -42,7 +46,8 @@
     "precio": 20.0,
     "descripcion": "Secuela del videojuego Hollow Knight.",
     "oferta": false,
-    "categoria": "Juegos"
+    "categoria": "Juegos",
+    "stock": 15
   },
   {
     "id": "p6",
@@ -51,7 +56,8 @@
     "precio": 14.99,
     "descripcion": "Mousepad Gamer con superficie antideslizante.",
     "oferta": true,
-    "categoria": "Accesorios"
+    "categoria": "Accesorios",
+    "stock": 1
   },
   {
     "id": "p7",
@@ -60,6 +66,17 @@
     "precio": 20.99,
     "descripcion": "Juego de plataformas con el icónico personaje Crash Bandicoot.",
     "oferta": true,
-    "categoria": "Juegos"
+    "categoria": "Juegos",
+    "stock": 8
+  },
+  {
+    "id": "p8",
+    "nombre": "Escritorio Gamer",
+    "imagen": "escritorio.jpg",
+    "precio": 100.99,
+    "descripcion": "Escritorio espacioso con soporte para monitores.",
+    "oferta": false,
+    "categoria": "Muebles",
+    "stock": 7
   }
 ]

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 export default function Checkout() {
-  const { items, getTotal, clearCart } = useCart();
+  const { items, getTotal, clearCartOnSuccess } = useCart();
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
@@ -68,7 +68,7 @@ export default function Checkout() {
       try {
         localStorage.setItem("lastOrder", JSON.stringify(order));
       } catch {}
-      clearCart();
+      clearCartOnSuccess();
       setProcesando(false);
       navigate("/checkout/success");
     }, 1200);
