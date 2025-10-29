@@ -19,13 +19,22 @@ function writeStorage(list) {
   } catch {}
 }
 
+function ensureCounterSeeded() {
+  const cur = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
+  if (cur > 0) return;
+  const all = [...initialProducts, ...(readStorage() || [])];
+  const max = all.reduce((acc, p) => {
+    const m = String(p?.id || "").match(/^p(\d+)$/i);
+    return m ? Math.max(acc, parseInt(m[1], 10)) : acc;
+  }, 0);
+  localStorage.setItem(COUNTER_KEY, String(max));
+}
 
 export function getProducts() {
   const stored = readStorage();
   if (!stored) return [...initialProducts];
   const seen = new Set(stored.map((p) => String(p.id)));
-  const merged = [...stored, ...initialProducts.filter((p) => !seen.has(String(p.id)))];
-  return merged;
+  return [...stored, ...initialProducts.filter((p) => !seen.has(String(p.id)))];
 }
 
 export function saveProducts(list) {
@@ -33,6 +42,7 @@ export function saveProducts(list) {
 }
 
 function nextId() {
+  ensureCounterSeeded();
   try {
     const last = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
     const next = last + 1;
@@ -44,11 +54,12 @@ function nextId() {
 }
 
 export function addProduct(product) {
-  const list = readStorage() || [...initialProducts];
+  // guardar sobre la lista actual para persistir
+  const list = getProducts();
   const newProduct = {
     id: product.id || nextId(),
     nombre: product.nombre || "",
-    imagen: product.imagen || "",
+    imagen: product.imagen || "Starmie.jpg",
     precio: Number(product.precio) || 0,
     descripcion: product.descripcion || "",
     oferta: !!product.oferta,
@@ -62,12 +73,6 @@ export function addProduct(product) {
 export function getProductById(id) {
   const lookup = String(id);
   return getProducts().find((p) => String(p.id) === lookup) || null;
-}
-
-export function updateProduct(updated) {
-  const list = getProducts().map((p) => (String(p.id) === String(updated.id) ? { ...p, ...updated } : p));
-  saveProducts(list);
-  return updated;
 }
 
 export function deleteProduct(id) {

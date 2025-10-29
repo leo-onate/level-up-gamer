@@ -58,9 +58,7 @@ export default function ProductCard({ product }) {
             >
               Añadir
             </button>
-            <Link to={`/catalogo/${product.id}`} className="btn btn-sm btn-primary">
-              Mostrar más
-            </Link>
+            <Link to={`/catalogo/${product.id}`} className="stretched-link" />
           </div>
         </div>
       </div>
