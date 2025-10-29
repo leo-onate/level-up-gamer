@@ -117,7 +117,6 @@ a:hover {
   border-color: #51EB44;
 }
 .btn-success:hover {
-  /* keep same green but slightly darker on hover */
   background-color: #51EB44;
   border-color: #51EB44;
   filter: brightness(0.9);
@@ -250,8 +249,6 @@ a:hover {
  .producto-card .btn {
    z-index: 2;
  }
-
-/* Offer price styling */
 .producto-card .price-original {
   color: rgba(255,255,255,0.6);
   text-decoration: line-through;
@@ -267,12 +264,11 @@ a:hover {
   font-weight: 700;
   font-size: 0.75rem;
 }
-/* Blog search input styling: dark background, white square borders and white text */
 .blog-search {
   background-color: #010710 !important;
   color: #fff !important;
   border: 1px solid #ffffff !important;
-  border-radius: 0 !important; /* square corners */
+  border-radius: 0 !important;
   box-shadow: none !important;
 }
 .blog-search:focus {
@@ -296,7 +292,6 @@ a:hover {
   background-color: #212529;
 }
 
-/* Blog category badge: purple */
 .blog-card .badge.bg-secondary {
   background-color: #7240DB !important;
   color: #fff !important;
@@ -314,8 +309,6 @@ a:hover {
   border-radius: 4px;
   padding: 0.25rem 0.5rem;
 }
-
-/* Cart action buttons */
 .btn-outline-secondary {
   color: #ff3b3b !important;
   border-color: #ff3b3b !important;
@@ -325,7 +318,6 @@ a:hover {
   color: #fff !important;
   background-color: #ff3b3b !important;
 }
-/* Badge used in single post header */
 .blog-badge {
   background-color: #7240DB !important;
   color: #fff !important;
@@ -335,7 +327,6 @@ a:hover {
   border-radius: 0.375rem;
 }
 .post-cover-container {
-  /* removed background to show image without extra box */
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -346,18 +337,67 @@ a:hover {
 }
 .post-cover {
   max-width: 100%;
-  width: 700px; /* slightly larger */
+  width: 700px;
   height: auto;
   object-fit: contain;
   display: block;
 }
 
-/* Post date color */
 .post-date {
   color: #fff !important;
 }
 
-/* Cart styling */
+.dark-container {
+  background-color: #212529;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.dark-container .table {
+  color: #fff;
+  background: transparent;
+}
+.dark-container .table td,
+.dark-container .table th {
+  background: transparent !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+.dark-container .table.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(255,255,255,0.02) !important;
+}
+.dark-container .table.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: rgba(255,255,255,0.04) !important;
+}
+
+.btn-view {
+  background-color: #FF4D2E;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.btn-view:hover {
+  background-color: #E04325;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: #FF2600;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.btn-delete:hover {
+  background-color: #E02000;
+  color: #fff;
+}
+
+.btn-sm.btn-view, .btn-sm.btn-delete {
+  padding: .25rem .5rem;
+  font-size: .8rem;
+}
+
 .cart-item {
   background-color: #212529 !important;
   color: #fff !important;
@@ -383,7 +423,6 @@ a:hover {
   padding: 0.25rem 0.5rem;
 }
 
-/* Cart action buttons */
 .btn-outline-secondary {
   color: #ff3b3b !important;
   border-color: #ff3b3b !important;
@@ -408,7 +447,6 @@ a:hover {
   color: #212529 !important;
 }
 
-/* Ensure category buttons keep their intended style even when btn-outline-secondary is re-styled elsewhere */
 .category-btn.btn-outline-secondary,
 .btn.category-btn {
   background: transparent !important;
@@ -428,7 +466,6 @@ a:hover {
 }
 
 
-/* Container for the post text (leer más) */
 .post-content-container {
   background-color: #212529;
   color: #fff;
@@ -437,7 +474,6 @@ a:hover {
   margin-top: 1rem;
 }
 
-/* Product detail page styling */
 .product-detail-card {
   background-color: #212529;
   color: #fff;
@@ -468,111 +504,4 @@ a:hover {
   color: #fff;
   font-size: 1.5rem;
   margin: 1rem 0;
-}
-
-/* AdminDashboard moved styles */
-.admin-dashboard {
-  font-family: inherit; 
-  color: var(--text-color, #e6eef8);
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 8px;
-}
-
-.ad-title {
-  color: var(--brand-color, #4fc3f7);
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  font-size: 1.05rem;
-  margin-bottom: 0;
-}
-.ad-sub {
-  color: var(--muted-color, #99a3b3);
-  font-size: 0.85rem;
-}
-
-.metric-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
-  border-radius: 8px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-.metric-label {
-  color: var(--muted-color, #99a3b3);
-  font-size: 0.85rem;
-  margin-bottom: 6px;
-}
-.metric-value {
-  color: var(--brand-color, #4fc3f7);
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-.metric-value.small {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--muted-color, #b0b9c4);
-}
-.metric-note {
-  color: var(--muted-color, #9aa6b6);
-  font-size: 0.75rem;
-  margin-top: 6px;
-}
-
-.recent-title {
-  color: var(--text-color, #e6eef8);
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-}
-.recent-list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.recent-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 6px;
-  margin-bottom: 8px;
-  background: rgba(255,255,255,0.01);
-}
-.product-thumb {
-  width: 56px;
-  height: 44px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,0.2);
-}
-.recent-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.recent-name {
-  color: var(--text-color, #e6eef8);
-  font-weight: 600;
-}
-.recent-meta {
-  color: var(--muted-color, #9aa6b6);
-  font-size: 0.85rem;
-}
-
-.recent-item .btn {
-  margin-left: auto;
-}
-
-/* ajustes responsivos */
-@media (max-width: 576px) {
-  .metric-value {
-    font-size: 1.25rem;
-  }
-  .product-thumb {
-    width: 48px;
-    height: 40px;
-  }
 }

@@ -20,13 +20,14 @@ export default function AdminProducts() {
 
   return (
     <div className="container mt-4">
-      <h2>Administrar productos</h2>
+      <div className="dark-container">
+        <h2>Administrar productos</h2>
 
-      {products.length === 0 ? (
-        <p>No hay productos.</p>
-      ) : (
-        <div className="table-responsive">
-          <table className="table table-striped align-middle">
+        {products.length === 0 ? (
+          <p>No hay productos.</p>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-striped align-middle">
             <thead>
               <tr>
                 
@@ -45,10 +46,10 @@ export default function AdminProducts() {
                   <td>{p.categoria}</td>
                   <td className="text-end">
                     <div className="d-flex justify-content-end gap-2">
-                      <button className="btn btn-sm btn-outline-secondary" onClick={() => navigate(`/catalogo/${p.id}`)}>
+                      <button className="btn btn-sm btn-view" onClick={() => navigate(`/catalogo/${p.id}`)}>
                         Ver
                       </button>
-                      <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(p.id, p.nombre)}>
+                      <button className="btn btn-sm btn-delete" onClick={() => handleDelete(p.id, p.nombre)}>
                         Eliminar
                       </button>
                     </div>
@@ -60,9 +61,10 @@ export default function AdminProducts() {
         </div>
       )}
 
-      <div className="mt-3">
-        <button className="btn btn-secondary me-2" onClick={() => navigate("/catalogo")}>Volver al catálogo</button>
-        <button className="btn btn-primary" onClick={() => navigate("/admin/agregar-producto")}>Agregar producto</button>
+        <div className="mt-3">
+          <button className="btn btn-secondary me-2" onClick={() => navigate("/catalogo")}>Volver al catálogo</button>
+          <button className="btn btn-primary" onClick={() => navigate("/admin/agregar-producto")}>Agregar producto</button>
+        </div>
       </div>
     </div>
   );
