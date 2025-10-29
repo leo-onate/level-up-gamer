@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import LoggedNavBar from "./components/LoggedNavBar";
 
-// Páginas activas
+// Páginas activas 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
