@@ -27,6 +27,15 @@ export default function ProductCard({ product }) {
               <small>Categoría: <Link to={`/categoria/${encodeURIComponent(product.categoria)}`}>{product.categoria}</Link></small>
             </p>
           )}
+          <div className="mt-2">
+            {product.stock > 0 && product.stock <= 4 && (
+              <span className="badge bg-warning me-2">Poco stock</span>
+            )}
+            {product.stock === 0 && (
+              <span className="badge bg-danger me-2">Agotado</span>
+            )}
+            <span className="text-white">Stock: {product.stock}</span>
+          </div>
         </div>
 
         <div className="product-actions mt-2">
@@ -41,8 +50,12 @@ export default function ProductCard({ product }) {
               <strong>${product.precio}</strong>
             )}
           </div>
-          <div className="d-flex gap-2">
-            <button className="btn btn-sm btn-success" onClick={() => addToCart(product, 1)}>
+          <div className="d-flex gap-2 mt-2">
+            <button 
+              className="btn btn-sm btn-success" 
+              onClick={() => addToCart(product, 1)}
+              disabled={product.stock === 0}
+            >
               Añadir
             </button>
             <Link to={`/catalogo/${product.id}`} className="btn btn-sm btn-primary">
