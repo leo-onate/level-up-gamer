@@ -52,5 +52,14 @@
     "descripcion": "Mousepad Gamer con superficie antideslizante.",
     "oferta": true,
     "categoria": "Accesorios"
+  },
+  {
+    "id": "p7",
+    "nombre": "Crash Bandicoot 4",
+    "imagen": "crash.jpg",
+    "precio": 20.99,
+    "descripcion": "Juego de plataformas con el icónico personaje Crash Bandicoot.",
+    "oferta": true,
+    "categoria": "Juegos"
   }
 ]
