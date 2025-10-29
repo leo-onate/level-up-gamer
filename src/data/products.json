@@ -68,5 +68,15 @@
     "oferta": true,
     "categoria": "Juegos",
     "stock": 8
+  },
+  {
+    "id": "p8",
+    "nombre": "Escritorio Gamer",
+    "imagen": "escritorio.jpg",
+    "precio": 100.99,
+    "descripcion": "Escritorio espacioso con soporte para monitores.",
+    "oferta": false,
+    "categoria": "Muebles",
+    "stock": 7
   }
 ]
