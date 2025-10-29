@@ -505,3 +505,88 @@ a:hover {
   font-size: 1.5rem;
   margin: 1rem 0;
 }
+
+/* Admin dashboard styles - match site theme and typography */
+:root{
+  --admin-card-bg: rgba(33,37,41,0.75);
+  --admin-border: rgba(255,255,255,0.06);
+  --admin-muted: #9fb3bd;
+  --admin-accent: #66fcf1;
+  --admin-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.admin-dashboard{
+  background: var(--admin-card-bg);
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-dashboard .ad-title{
+  color: var(--admin-accent);
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+.admin-dashboard .ad-sub{
+  color: var(--admin-muted);
+  font-size: 0.9rem;
+}
+
+.metrics-row{ display:flex; gap:1rem; flex-wrap:wrap; }
+.metric-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 180px;
+  flex: 1 1 180px;
+}
+.metric-label{ color: var(--admin-muted); font-size:0.85rem; }
+.metric-value{ color: #fff; font-weight:700; font-size:1.35rem; }
+.metric-note{ color: var(--admin-muted); font-size:0.8rem; margin-top:6px; }
+
+.recent-title{ color: var(--admin-accent); margin:0.5rem 0; font-size:0.95rem; }
+.recent-list{ list-style:none; padding:0; margin:0; }
+.recent-item{
+  display:flex; gap:12px; align-items:center; padding:8px 10px; border-radius:6px; transition:background .12s, transform .09s;
+}
+.recent-item:hover{ background: rgba(255,255,255,0.02); transform: translateY(-2px); }
+
+.product-thumb{ width:56px; height:56px; object-fit:cover; border-radius:6px; border:1px solid var(--admin-border); }
+.recent-info{ display:flex; flex-direction:column; }
+.recent-name{ color:#fff; font-weight:600; font-size:0.95rem; }
+.recent-meta{ color: var(--admin-muted); font-size:0.82rem; }
+
+/* Recuadro negro para los items recientes (sobrescribe estilos de .list-group-item) */
+.recent-list .list-group-item,
+.recent-list .recent-item {
+  background-color: #0b0c10; /* negro oscuro del tema */
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #ffffff;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.recent-list .recent-item:hover {
+  background-color: rgba(255,255,255,0.02);
+  transform: translateY(-2px);
+}
+
+/* Asegura contraste de nombre y precio */
+.recent-name { color: #ffffff; font-weight: 600; }
+.recent-meta { color: var(--admin-muted); }
+
+/* Miniatura sobre fondo oscuro para que no "se pierda" */
+.product-thumb {
+  background: #0b0c10;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* small utility for card usage */
+.admin-dashboard.card{ background: var(--admin-card-bg); border-color: var(--admin-border); }
+
