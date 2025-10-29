@@ -6,7 +6,6 @@ export default function AdminAddProduct() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     nombre: "",
-    imagen: "", 
     precio: "",
     descripcion: "",
     oferta: false,
@@ -25,23 +24,19 @@ export default function AdminAddProduct() {
     if (!form.nombre.trim()) return setError("Nombre requerido.");
     if (form.precio === "" || isNaN(Number(form.precio))) return setError("Precio válido requerido.");
 
-    // addProduct devuelve el producto creado incluyendo su id
     const nuevo = addProduct({
       nombre: form.nombre.trim(),
-      imagen: form.imagen.trim(),
+      imagen: "Starmie.jpg", // imagen por defecto
       precio: Number(form.precio),
       descripcion: form.descripcion.trim(),
       oferta: !!form.oferta,
       categoria: form.categoria.trim(),
     });
 
-    // navegar al detalle del producto creado para ver el ID (no editable)
-    if (nuevo && nuevo.id) {
+    if (nuevo?.id) {
       navigate(`/catalogo/${nuevo.id}`);
       return;
     }
-
-    // fallback
     navigate("/catalogo");
   };
 
@@ -54,10 +49,7 @@ export default function AdminAddProduct() {
           <input className="form-control" value={form.nombre} onChange={handleChange("nombre")} />
         </div>
 
-        <div className="col-12">
-          <label className="form-label">Imagen (nombre de archivo en assets o URL)</label>
-          <input className="form-control" value={form.imagen} onChange={handleChange("imagen")} placeholder="ej: teclado-z.jpg o /assets/img/teclado-z.jpg" />
-        </div>
+        {/* Eliminado el campo de imagen: se usa 'Starmie.jpg' por defecto */}
 
         <div className="col-md-4">
           <label className="form-label">Precio</label>
