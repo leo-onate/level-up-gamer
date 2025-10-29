@@ -26,6 +26,7 @@ export default function OrderSuccess(props) {
           total: order.total || 0,
           items: order.items || [],
           customer: order.customer || {},
+          userEmail: order.userEmail || null, // Guardar también el email del usuario
           date: new Date().toISOString(),
           // puedes agregar más campos si los necesitas
         };
