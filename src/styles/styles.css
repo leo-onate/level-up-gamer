@@ -292,7 +292,6 @@ a:hover {
   background-color: #212529;
 }
 
-/* Blog category badge: purple */
 .blog-card .badge.bg-secondary {
   background-color: #7240DB !important;
   color: #fff !important;
@@ -310,8 +309,6 @@ a:hover {
   border-radius: 4px;
   padding: 0.25rem 0.5rem;
 }
-
-/* Cart action buttons */
 .btn-outline-secondary {
   color: #ff3b3b !important;
   border-color: #ff3b3b !important;
@@ -321,7 +318,6 @@ a:hover {
   color: #fff !important;
   background-color: #ff3b3b !important;
 }
-/* Badge used in single post header */
 .blog-badge {
   background-color: #7240DB !important;
   color: #fff !important;
@@ -350,8 +346,7 @@ a:hover {
 .post-date {
   color: #fff !important;
 }
- 
-/* Admin dark container + admin button styles */
+
 .dark-container {
   background-color: #212529;
   color: #fff;
@@ -360,7 +355,6 @@ a:hover {
   border: 1px solid rgba(255,255,255,0.06);
 }
 
-/* Table inside dark container: let row backgrounds show through */
 .dark-container .table {
   color: #fff;
   background: transparent;
@@ -372,7 +366,6 @@ a:hover {
   border-color: rgba(255,255,255,0.06) !important;
 }
 
-/* Slight striped rows for readability */
 .dark-container .table.table-striped > tbody > tr:nth-of-type(odd) {
   background-color: rgba(255,255,255,0.02) !important;
 }
@@ -380,7 +373,6 @@ a:hover {
   background-color: rgba(255,255,255,0.04) !important;
 }
 
-/* Admin action buttons */
 .btn-view {
   background-color: #FF4D2E;
   color: #fff;
@@ -401,7 +393,6 @@ a:hover {
   color: #fff;
 }
 
-/* Small button sizing for consistency */
 .btn-sm.btn-view, .btn-sm.btn-delete {
   padding: .25rem .5rem;
   font-size: .8rem;
