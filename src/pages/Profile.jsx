@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUser } from "../services/auth";
 import { getUsers, saveUsers } from "../services/userService";
 
 export default function Profile() {
   const navigate = useNavigate();
-  const current = getCurrentUser() || null;
-
+  
+  const [current] = useState(() => getCurrentUser()|| null);
   const [form, setForm] = useState({
     nombre: "",
     correo: "",
@@ -24,7 +24,7 @@ export default function Profile() {
       });
       setOrigCorreo(current.correo || current.email || "");
     }
-  }, [current]);
+  }, []);
 
   const handleChange = (k) => (e) => setForm((s) => ({ ...s, [k]: e.target.value }));
 
