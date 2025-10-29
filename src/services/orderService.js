@@ -67,3 +67,9 @@ export function clearOrders(key = null) {
 export function getOrdersCount() {
   return getOrders().length;
 }
+
+export function getOrdersByUserEmail(email) {
+  if (!email) return [];
+  const allOrders = getOrders();
+  return allOrders.filter(order => order.userEmail === email);
+}

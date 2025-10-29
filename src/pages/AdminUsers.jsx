@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getUsers, saveUsers } from "../services/userService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
+  const navigate = useNavigate();
   const [editUser, setEditUser] = useState({
     nombre: "",
     correo: "",
@@ -111,6 +112,9 @@ export default function AdminUsers() {
                         <div className="d-flex justify-content-end gap-2">
                           <button className="btn btn-sm btn-view" onClick={() => handleEditClick(idx)}>
                             Editar
+                          </button>
+                          <button className="btn btn-sm btn-info" onClick={() => navigate(`/admin/historial-compras/${u.correo}`)}>
+                            Ver historial
                           </button>
                         </div>
                       </td>

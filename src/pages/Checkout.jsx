@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { getCurrentUser } from "../services/auth";
 
 export default function Checkout() {
-  const { items, getTotal, clearCartOnSuccess } = useCart();
+  const { items, getTotal, clearCart } = useCart();
   const navigate = useNavigate();
-
+  const user = getCurrentUser();
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [ciudad, setCiudad] = useState("");
@@ -46,6 +47,8 @@ export default function Checkout() {
       customer: { nombre, direccion, ciudad, codigo, metodo },
       items,
       total,
+      // Asociar el usuario a la orden
+      userEmail: user ? user.correo : null,
     };
 
    
@@ -68,7 +71,7 @@ export default function Checkout() {
       try {
         localStorage.setItem("lastOrder", JSON.stringify(order));
       } catch {}
-      clearCartOnSuccess();
+      clearCart();
       setProcesando(false);
       navigate("/checkout/success");
     }, 1200);

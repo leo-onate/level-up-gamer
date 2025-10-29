@@ -11,6 +11,7 @@ import Inicio from "./pages/Inicio";
 import Blog from "./pages/Blog";
 import Post from "./pages/Post";
 import Profile from "./pages/Profile"; 
+import AdminUserOrders from "./pages/AdminUserOrders";
 import We from "./pages/We";
 import Catalogo from "./pages/Catalogo";
 import ProductDetail from "./pages/ProductDetail";
@@ -64,6 +65,12 @@ export default function App() {
           {/* Nosotros */}
           <Route path="/we" element={<We />} />
 
+          {/* ... otras rutas ... */}
+          <Route path="/admin/usuarios" element={<AdminUsers />} />
+          {/* 👇 Agrega esta nueva ruta aquí 👇 */}
+          <Route path="/admin/historial-compras/:userEmail" element={<AdminUserOrders />} />
+          {/* ... más rutas si existen ... */}
+          
           {/* Catalogo */}
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/catalogo/:id" element={<ProductDetail />} />
