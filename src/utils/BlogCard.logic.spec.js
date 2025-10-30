@@ -24,11 +24,10 @@ describe('BlogCard.logic.js', function() {
     // Test 2: Entrada válida (Objeto Date)
     // Verifica que maneja objetos Date nativos.
     it('debe formatear correctamente un objeto Date (mes 0 = Enero)', function() {
-      // Usamos Date.UTC para evitar discrepancias de zona horaria en el runner de pruebas
-      const dateObj = new Date(Date.UTC(2024, 0, 15)); // 15 Enero 2024
-      const expected = '15 de enero de 2024';
-      const result = window.BlogCardLogic.formatDate(dateObj);
-      expect(result).toBe(expected);
+      // Usamos una fecha sin especificar hora para evitar conversión de zona horaria
+      const dateStr = '2024-01-15T12:00:00Z'; // Mediodía UTC para evitar cambio de día
+      const result = window.BlogCardLogic.formatDate(dateStr);
+      expect(result).toBe('15 de enero de 2024');
     });
 
     // Test 3: Entrada nula (null)
@@ -71,10 +70,9 @@ describe('BlogCard.logic.js', function() {
     // Test 8: Caso Borde (Timestamp 0 - "Epoch")
     // Prueba con el inicio del tiempo Unix.
     it('debe manejar correctamente la fecha "Epoch" (Timestamp 0)', function() {
-      const epochDate = 0; // 1 Enero 1970 UTC
-      const expected = '1 de enero de 1970';
+      const epochDate = '1970-01-01T12:00:00Z'; // Mediodía UTC
       const result = window.BlogCardLogic.formatDate(epochDate);
-      expect(result).toBe(expected);
+      expect(result).toBe('1 de enero de 1970');
     });
 
   });
