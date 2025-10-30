@@ -401,12 +401,16 @@ describe('ProductService.logic.js', function() {
     });
 
     // Test 4: Caso nulo (eliminar null)
-    it('no debe fallar (throw) y debe persistir "p1" y "p2" si el ID es nulo', function() {
+    it('no debe fallar (throw) ni modificar el storage si el ID es nulo', function() {
+      // Primero guardamos algo para que el storage no esté vacío
+      window.ProductServiceLogic.saveProducts([{ id: "p1" }, { id: "p2" }]);
+      
+      // Llamamos deleteProduct con null
       window.ProductServiceLogic.deleteProduct(null);
       
-      // Verifica storage
+      // Verifica que el storage NO cambió (sigue teniendo p1 y p2)
       var storedList = JSON.parse(mockStorage.getItem(STORAGE_KEY));
-      // Deben quedar p1, p2 (no se borró nada)
+      expect(storedList).not.toBeNull();
       expect(storedList.length).toBe(2);
     });
   });
