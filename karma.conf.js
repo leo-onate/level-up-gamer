@@ -10,10 +10,16 @@ module.exports = function(config) {
 
     // Lista de archivos / patrones a cargar en el navegador
     files: [
-      // Primero carga el archivo de lógica
+      // Primero carga todos los archivos de lógica
       'src/utils/ProductCard.logic.js',
-      // Luego carga las pruebas
-      'src/utils/ProductCard.logic.spec.js'
+      'src/utils/ProductDetail.logic.js',
+      'src/utils/LoggedNavbar.logic.js',
+      'src/utils/CartProvider.logic.js',
+      // Luego carga todas las pruebas
+      'src/utils/ProductCard.logic.spec.js',
+      'src/utils/ProductDetail.logic.spec.js',
+      'src/utils/LoggedNavbar.logic.spec.js',
+      'src/utils/CartProvider.logic.spec.js'
     ],
 
     // Lista de archivos / patrones a excluir
