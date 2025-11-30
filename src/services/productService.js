@@ -31,34 +31,22 @@ export async function deleteProductById(id) {
   return res.data;
 }
 
-// Legacy synchronous helper — keep reading local cached list for parts of app
-// that still depend on sync API. This reads from `src/data/products` + localStorage.
-import { products as initialProducts } from '../data/products';
-
+// Legacy synchronous helper — read only from localStorage if present.
+// We avoid importing the static JSON so the file can be removed.
 const STORAGE_KEY = 'products_list';
 
 function readStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
+    if (!raw) return [];
     return JSON.parse(raw);
   } catch {
-    return null;
+    return [];
   }
 }
 
 export function getProducts() {
-  const stored = readStorage() || [];
-  const map = new Map(initialProducts.map((p) => [String(p.id), { ...p }]));
-  for (const s of stored) {
-    const id = String(s.id);
-    if (map.has(id)) {
-      map.set(id, { ...map.get(id), ...s });
-    } else {
-      map.set(id, { ...s });
-    }
-  }
-  return Array.from(map.values());
+  return readStorage();
 }
 
 export function getProductById(id) {
