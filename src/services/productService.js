@@ -6,59 +6,72 @@ import api from './http';
 // but new pages should use the async `fetch*` functions below.
 
 // Async calls to backend
+function normalizeProduct(p) {
+  if (!p) return p;
+  return {
+    id: p.id || p._id || p.codigo || null,
+    nombre: p.name || p.nombre || '',
+    imagen: p.image || p.imagen || p.img || '',
+    precio: p.price ?? p.precio ?? 0,
+    descripcion: p.description || p.descripcion || '',
+    oferta: p.oferta ?? false,
+    categoria: p.category || p.categoria || '',
+    stock: p.stock ?? 0,
+    // preserve original fields too
+    _raw: p,
+  };
+}
+
 export async function fetchProducts(params = {}) {
-  const res = await api.get('/products', { params });
-  return res.data;
+  try {
+    const res = await api.get('/products', { params });
+    const data = res.data;
+    const list = Array.isArray(data) ? data : (data.items || data || []);
+    // debug log to help trace empty catalog issues
+    console.debug('[productService] fetched products count=', Array.isArray(list) ? list.length : 0, 'raw=', list);
+    return list.map(normalizeProduct);
+  } catch (err) {
+    console.error('[productService] fetchProducts error', err && err.message ? err.message : err);
+    throw err;
+  }
 }
 
 export async function fetchProductById(id) {
   const res = await api.get(`/products/${id}`);
-  return res.data;
+  return normalizeProduct(res.data);
 }
 
 export async function createProduct(payload) {
-  const res = await api.post('/admin/products', payload);
+  const res = await api.post('/products', payload);
   return res.data;
 }
 
 export async function updateProductById(id, payload) {
-  const res = await api.put(`/admin/products/${id}`, payload);
+  const res = await api.put(`/products/${id}`, payload);
   return res.data;
 }
 
 export async function deleteProductById(id) {
-  const res = await api.delete(`/admin/products/${id}`);
+  const res = await api.delete(`/products/${id}`);
   return res.data;
 }
 
-// Legacy synchronous helper — keep reading local cached list for parts of app
-// that still depend on sync API. This reads from `src/data/products` + localStorage.
-import { products as initialProducts } from '../data/products';
-
+// Legacy synchronous helper — read only from localStorage if present.
+// We avoid importing the static JSON so the file can be removed.
 const STORAGE_KEY = 'products_list';
 
 function readStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
+    if (!raw) return [];
     return JSON.parse(raw);
   } catch {
-    return null;
+    return [];
   }
 }
 
 export function getProducts() {
-  const stored = readStorage() || [];
-  const map = new Map(initialProducts.map((p) => [String(p.id), { ...p }]));
-  for (const s of stored) {
-    const id = String(s.id);
-    if (map.has(id)) {
-      map.set(id, { ...map.get(id), ...s });
-    } else {
-      map.set(id, { ...s });
-    }
-  }
-  return Array.from(map.values());
+  return readStorage();
 }
 
 export function getProductById(id) {

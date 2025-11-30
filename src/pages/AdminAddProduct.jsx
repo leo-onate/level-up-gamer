@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addProduct } from "../services/productService";
+import { createProduct } from "../services/productService";
 
 export default function AdminAddProduct() {
   const navigate = useNavigate();
@@ -24,20 +24,29 @@ export default function AdminAddProduct() {
     if (!form.nombre.trim()) return setError("Nombre requerido.");
     if (form.precio === "" || isNaN(Number(form.precio))) return setError("Precio válido requerido.");
 
-    const nuevo = addProduct({
-      nombre: form.nombre.trim(),
-      imagen: "Starmie.jpg", // imagen por defecto
-      precio: Number(form.precio),
-      descripcion: form.descripcion.trim(),
-      oferta: !!form.oferta,
-      categoria: form.categoria.trim(),
-    });
-
-    if (nuevo?.id) {
-      navigate(`/catalogo/${nuevo.id}`);
-      return;
-    }
-    navigate("/catalogo");
+    (async () => {
+      try {
+        const payload = {
+          name: form.nombre.trim(),
+          image: "Starmie.jpg",
+          price: Number(form.precio),
+          description: form.descripcion.trim(),
+          oferta: !!form.oferta,
+          category: form.categoria.trim(),
+          stock: 0,
+        };
+        const nuevo = await createProduct(payload);
+        if (nuevo && (nuevo.id || nuevo._id)) {
+          const id = nuevo.id || nuevo._id;
+          navigate(`/catalogo/${id}`);
+          return;
+        }
+        navigate("/catalogo");
+      } catch (err) {
+        console.error('Crear producto error', err);
+        setError('No se pudo crear el producto.');
+      }
+    })();
   };
 
   return (

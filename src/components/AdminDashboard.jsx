@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getProducts } from '../services/productService';
+import { fetchProducts } from '../services/productService';
 import { getUsers } from '../services/userService';
 import { getOrders } from '../services/orderService';
 import images from '../services/imageLoader';
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     async function loadData() {
       try {
         const [prods, usrs, ords] = await Promise.all([
-          getProducts(),
+          fetchProducts(),
           getUsers(),
           Promise.resolve(getOrders()), // getOrders() es síncrono si usa localStorage
         ]);
