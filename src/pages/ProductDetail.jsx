@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getProductById } from "../services/productService";
+import { fetchProductById, getProductById as getLocalProduct } from "../services/productService";
 import images from "../services/imageLoader";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = getProductById(id);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!product) {
+  useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    fetchProductById(id)
+      .then((data) => {
+        if (!mounted) return;
+        // backend might return object directly
+        setProduct(data);
+      })
+      .catch(() => {
+        // fallback to local
+        const local = getLocalProduct(id);
+        setProduct(local);
+      })
+      .finally(() => mounted && setLoading(false));
+
+    return () => {
+      mounted = false;
+    };
+  }, [id]);
+
+  if (loading) return <div className="container mt-4">Cargando...</div>;
+  if (!product)
     return (
       <div className="container mt-4">
         <h3>Producto no encontrado</h3>
@@ -17,7 +40,6 @@ export default function ProductDetail() {
         </button>
       </div>
     );
-  }
 
   const src =
     (product.imagen && images[product.imagen]) ||

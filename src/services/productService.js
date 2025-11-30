@@ -1,7 +1,41 @@
-import { products as initialProducts } from "../data/products";
+import api from './http';
 
-const STORAGE_KEY = "products_list";
-const COUNTER_KEY = "product_counter";
+// NOTE: This file used to provide a local-storage backed product service.
+// For integration with the Spring Boot backend we expose async functions
+// that call the API. Legacy synchronous helpers remain for other code,
+// but new pages should use the async `fetch*` functions below.
+
+// Async calls to backend
+export async function fetchProducts(params = {}) {
+  const res = await api.get('/products', { params });
+  return res.data;
+}
+
+export async function fetchProductById(id) {
+  const res = await api.get(`/products/${id}`);
+  return res.data;
+}
+
+export async function createProduct(payload) {
+  const res = await api.post('/admin/products', payload);
+  return res.data;
+}
+
+export async function updateProductById(id, payload) {
+  const res = await api.put(`/admin/products/${id}`, payload);
+  return res.data;
+}
+
+export async function deleteProductById(id) {
+  const res = await api.delete(`/admin/products/${id}`);
+  return res.data;
+}
+
+// Legacy synchronous helper — keep reading local cached list for parts of app
+// that still depend on sync API. This reads from `src/data/products` + localStorage.
+import { products as initialProducts } from '../data/products';
+
+const STORAGE_KEY = 'products_list';
 
 function readStorage() {
   try {
@@ -13,32 +47,6 @@ function readStorage() {
   }
 }
 
-function writeStorage(list) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  } catch {}
-}
-
-// max id num de pNN entre iniciales y guardados
-function getMaxId() {
-  const all = [...initialProducts, ...(readStorage() || [])];
-  return all.reduce((acc, p) => {
-    const m = String(p?.id || "").match(/^p(\d+)$/i);
-    return m ? Math.max(acc, parseInt(m[1], 10)) : acc;
-  }, 0);
-}
-
-// si el contador existente es menor que el máximo real, lo corrige
-function ensureCounterSynced() {
-  const cur = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
-  const max = getMaxId();
-  if (isNaN(cur) || cur < max) {
-    localStorage.setItem(COUNTER_KEY, String(max));
-  }
-}
-
-// merge: iniciales + guardados, pero si hay el mismo id, se hace deep-merge
-// (los del storage sobrescriben, pero se mantienen campos faltantes como 'stock')
 export function getProducts() {
   const stored = readStorage() || [];
   const map = new Map(initialProducts.map((p) => [String(p.id), { ...p }]));
@@ -53,50 +61,8 @@ export function getProducts() {
   return Array.from(map.values());
 }
 
-export function saveProducts(list) {
-  writeStorage(list);
-}
-
-function nextId() {
-  ensureCounterSynced();
-  const last = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10);
-  const next = (isNaN(last) ? 0 : last) + 1;
-  localStorage.setItem(COUNTER_KEY, String(next));
-  return `p${next}`;
-}
-
-export function addProduct(product) {
-  // trabajar sobre la lista unificada y persistirla
-  const list = getProducts();
-  const newProduct = {
-    id: product.id || nextId(),
-    nombre: product.nombre || "",
-    imagen: product.imagen || "Starmie.jpg",
-    precio: Number(product.precio) || 0,
-    descripcion: product.descripcion || "",
-    oferta: !!product.oferta,
-    categoria: product.categoria || "",
-    stock: product.stock ?? 0,
-  };
-  list.push(newProduct);
-  saveProducts(list);
-  return newProduct;
-}
-
 export function getProductById(id) {
   const lookup = String(id);
   return getProducts().find((p) => String(p.id) === lookup) || null;
 }
 
-export function updateProduct(updated) {
-  const list = getProducts().map((p) =>
-    String(p.id) === String(updated.id) ? { ...p, ...updated } : p
-  );
-  saveProducts(list);
-  return updated;
-}
-
-export function deleteProduct(id) {
-  const list = getProducts().filter((p) => String(p.id) !== String(id));
-  saveProducts(list);
-}
