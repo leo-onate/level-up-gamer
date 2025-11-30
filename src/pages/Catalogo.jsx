@@ -17,13 +17,22 @@ export default function Catalogo() {
       .then((data) => {
         if (!mounted) return;
         const list = Array.isArray(data) ? data : data.items || [];
+        console.debug('[Catalogo] products loaded count=', list.length, list);
+        if (!list || list.length === 0) {
+          setError('No hay productos devueltos por el backend. Verifica la BD o el backend.');
+        }
         setItems(list);
       })
       .catch(() => {
         // fallback to local
         try {
           const list = getLocalProducts();
-          if (mounted) setItems(list);
+          if (mounted) {
+            if (!list || list.length === 0) {
+              setError('No hay productos locales ni respuesta del backend.');
+            }
+            setItems(list);
+          }
         } catch (e) {
           if (mounted) setError('No se pudieron cargar productos');
         }
