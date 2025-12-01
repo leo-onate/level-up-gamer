@@ -42,7 +42,7 @@ function normalizeUser(raw) {
     contrasena: raw.password ? '••••••' : '',
     fechaNacimiento: fechaIso,
     isAdmin: raw.isAdmin ?? raw.is_admin ?? false,
-    tipo: raw.tipo ?? (raw.isAdmin || raw.is_admin ? 1 : 0), // 0=normal, 1=admin, 2=vendedor
+    tipo: raw.tipo ?? (raw.isAdmin || raw.is_admin ? 2 : 0), // 0=cliente, 1=vendedor, 2=admin
     _raw: raw,
   };
 }

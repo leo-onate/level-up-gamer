@@ -15,13 +15,13 @@ export default function LoggedNavbar() {
   // support different user shapes: prefer tipo field, fallback to isAdmin
   const isAdmin = !!(
     user && (
-      user.tipo === 1 || 
+      user.tipo === 2 || 
       user.isAdmin === true || user.isAdmin === 1 || user.is_admin === 1 || user.is_admin === true || 
       String(user.nombre).toLowerCase() === 'admin'
     )
   );
 
-  const isVendedor = !!(user && user.tipo === 2);
+  const isVendedor = !!(user && user.tipo === 1);
 
   // Admin o vendedor pueden ver opciones administrativas
   const canAccessAdmin = isAdmin || isVendedor;

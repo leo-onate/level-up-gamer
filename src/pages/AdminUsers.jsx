@@ -12,7 +12,7 @@ export default function AdminUsers() {
     contrasena: "",
     fechaNacimiento: "",
     isAdmin: false,
-    tipo: 0, // 0=normal, 1=admin, 2=vendedor
+    tipo: 0, // 0=cliente, 1=vendedor, 2=admin
   });
 
   useEffect(() => {
@@ -150,9 +150,9 @@ export default function AdminUsers() {
                           value={editUser.tipo ?? 0}
                           onChange={(e) => handleChange('tipo', parseInt(e.target.value))}
                         >
-                          <option value={0}>Normal</option>
-                          <option value={1}>Admin</option>
-                          <option value={2}>Vendedor</option>
+                          <option value={0}>Cliente</option>
+                          <option value={1}>Vendedor</option>
+                          <option value={2}>Admin</option>
                         </select>
                       </td>
                       <td>
@@ -173,7 +173,7 @@ export default function AdminUsers() {
                       <td>{u.contrasena ? "•••••••" : ""}</td>
                       <td>{u.fechaNacimiento || ""}</td>
                       <td>
-                        {u.tipo === 1 ? 'Admin' : u.tipo === 2 ? 'Vendedor' : 'Normal'}
+                        {u.tipo === 2 ? 'Admin' : u.tipo === 1 ? 'Vendedor' : 'Cliente'}
                       </td>
                       <td>
                         <div className="d-flex justify-content-end gap-2">
