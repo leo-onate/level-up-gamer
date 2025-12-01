@@ -9,12 +9,13 @@ export async function registerUser({ nombre, correo, contrasena, fechaNacimiento
       password: contrasena,
       name: nombre,
       fechaNac: fechaNacimiento,
-      isAdmin: false
+      isAdmin: false,
+      tipo: 0 // Usuario normal por defecto
     };
     const res = await api.post('/users', payload);
     const user = res.data;
     // store minimal user locally (do not store password)
-    const safe = { id: user.id, email: user.email, name: user.name, isAdmin: user.isAdmin };
+    const safe = { id: user.id, email: user.email, name: user.name, isAdmin: user.isAdmin, tipo: user.tipo ?? (user.isAdmin ? 1 : 0) };
     try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
     return { ok: true, user: safe };
   } catch (err) {
@@ -31,7 +32,7 @@ export async function login({ usuario, password }) {
     const list = Array.isArray(res.data) ? res.data : (res.data.items || []);
     const found = list.find(u => (u.email && u.email === usuario) || (u.name && u.name === usuario));
     if (found && String(found.password) === String(password)) {
-      const safe = { id: found.id, email: found.email, name: found.name, isAdmin: found.isAdmin };
+      const safe = { id: found.id, email: found.email, name: found.name, isAdmin: found.isAdmin, tipo: found.tipo ?? (found.isAdmin ? 1 : 0) };
       try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
       return true;
     }
