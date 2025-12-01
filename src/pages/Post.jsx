@@ -1,15 +1,54 @@
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { blogPosts, formatDate } from "../data/blogs";
+import { fetchBlogById } from "../services/blogsService";
+
+// Útil para formatear la fecha
+function formatDate(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleDateString("es-CL", {
+    day: "2-digit", month: "short", year: "numeric"
+  });
+}
 
 export default function Post() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = blogPosts.find(p => p.id === id);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!post) {
+  useEffect(() => {
+    async function loadPost() {
+      try {
+        setLoading(true);
+        const data = await fetchBlogById(id);
+        setPost(data);
+      } catch (err) {
+        console.error('Error loading post:', err);
+        setError('Error al cargar el artículo');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPost();
+  }, [id]);
+
+  if (loading) {
     return (
       <div className="container my-5">
-        <h4>Artículo no encontrado</h4>
+        <div className="text-center py-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !post) {
+    return (
+      <div className="container my-5">
+        <h4>{error || 'Artículo no encontrado'}</h4>
         <button className="btn btn-primary mt-3" onClick={() => navigate("/blogs")}>
           Volver al blog
         </button>
@@ -17,7 +56,6 @@ export default function Post() {
     );
   }
 
-  
   const paragraphs = post.content.trim().split("\n").filter(Boolean);
 
   return (
@@ -31,11 +69,12 @@ export default function Post() {
 
       <span className="badge bg-secondary mb-2 blog-badge">{post.category}</span>
       <h2>{post.title}</h2>
-      <small className="post-date">{formatDate(post.date)}</small>
+      <small className="post-date">{formatDate(post.publishedDate)}</small>
+      {post.author && <div className="text-muted mt-1">Por {post.author}</div>}
 
-      {post.cover ? (
+      {post.image ? (
         <div className="post-cover-container my-3">
-          <img src={post.cover} alt={post.title} className="post-cover" />
+          <img src={post.image} alt={post.title} className="post-cover" />
         </div>
       ) : null}
 
