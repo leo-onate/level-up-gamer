@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUsers, saveUsers } from "../services/userService";
+import { fetchUsers, updateUserById, getUsers, saveUsers } from "../services/userService";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminUsers() {
@@ -14,7 +14,17 @@ export default function AdminUsers() {
   });
 
   useEffect(() => {
-    setUsers(getUsers());
+    let mounted = true;
+    fetchUsers()
+      .then((list) => {
+        if (!mounted) return;
+        setUsers(list);
+      })
+      .catch(() => {
+        // fallback to local storage
+        setUsers(getUsers());
+      });
+    return () => { mounted = false; };
   }, []);
 
   const handleEditClick = (index) => {
@@ -27,11 +37,42 @@ export default function AdminUsers() {
   };
 
   const handleSave = (index) => {
-    const updated = [...users];
-    updated[index] = { ...updated[index], ...editUser };
-    saveUsers(updated);
-    setUsers(updated);
-    setEditingIndex(-1);
+    const user = users[index];
+    const payload = {
+      // map frontend fields to backend
+      name: editUser.nombre,
+      email: editUser.correo,
+      // only send password if user changed it (and not masked)
+      ...(editUser.contrasena && editUser.contrasena !== '••••••' ? { password: editUser.contrasena } : {}),
+      fechaNac: editUser.fechaNacimiento || user.fechaNacimiento || null,
+      isAdmin: editUser.isAdmin ?? user.isAdmin ?? false,
+    };
+
+    // Try backend update, fallback to local storage
+    if (user && user.id) {
+      updateUserById(user.id, payload)
+        .then((updated) => {
+          const copy = [...users];
+          copy[index] = { ...copy[index], ...updated };
+          setUsers(copy);
+          setEditingIndex(-1);
+        })
+        .catch((err) => {
+          console.error('updateUserById error', err);
+          const updated = [...users];
+          updated[index] = { ...updated[index], ...editUser };
+          saveUsers(updated);
+          setUsers(updated);
+          setEditingIndex(-1);
+        });
+    } else {
+      // local-only user
+      const updated = [...users];
+      updated[index] = { ...updated[index], ...editUser };
+      saveUsers(updated);
+      setUsers(updated);
+      setEditingIndex(-1);
+    }
   };
 
   const handleCancel = () => {

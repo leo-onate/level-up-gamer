@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getProducts, deleteProduct } from "../services/productService";
+import { fetchProducts, deleteProductById, getProducts as getLocalProducts } from "../services/productService";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminProducts() {
@@ -7,15 +7,35 @@ export default function AdminProducts() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setProducts(getProducts());
+    let mounted = true;
+    fetchProducts()
+      .then((data) => {
+        if (!mounted) return;
+        const list = Array.isArray(data) ? data : data.items || [];
+        setProducts(list);
+      })
+      .catch(() => {
+        // fallback to local storage
+        setProducts(getLocalProducts());
+      });
+    return () => { mounted = false; };
   }, []);
 
   const handleDelete = (id, nombre) => {
     if (!window.confirm(`¿Eliminar "${nombre}" (id: ${id})? Esta acción puede deshacerla borrando products_list en LocalStorage.`)) {
       return;
     }
-    deleteProduct(id);
-    setProducts(getProducts());
+    // attempt backend delete, fallback to local delete behavior
+    deleteProductById(id).then(() => {
+      // refetch list
+      fetchProducts().then((d) => setProducts(Array.isArray(d) ? d : d.items || [])).catch(() => setProducts(getLocalProducts()));
+    }).catch(() => {
+      // if backend delete fails, try local storage delete (legacy)
+      // local delete: read list, filter out id and save
+      const list = getLocalProducts().filter(p => String(p.id) !== String(id));
+      localStorage.setItem('products_list', JSON.stringify(list));
+      setProducts(list);
+    });
   };
 
   return (

@@ -1,9 +1,22 @@
 import React from "react";
-import { getProducts } from "../services/productService";
+import { fetchProducts, getProducts as getLocalProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
-
 export default function Ofertas() {
-  const productos = getProducts().filter(p => p.oferta === true);
+  const [productos, setProductos] = React.useState([]);
+
+  React.useEffect(() => {
+    let mounted = true;
+    fetchProducts()
+      .then((data) => {
+        if (!mounted) return;
+        const list = Array.isArray(data) ? data : data.items || [];
+        setProductos(list.filter(p => p.oferta === true));
+      })
+      .catch(() => {
+        setProductos(getLocalProducts().filter(p => p.oferta === true));
+      });
+    return () => { mounted = false; };
+  }, []);
 
   return (
     <div className="mt-4">
