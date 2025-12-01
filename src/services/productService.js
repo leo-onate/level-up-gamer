@@ -24,7 +24,7 @@ function normalizeProduct(p) {
 
 export async function fetchProducts(params = {}) {
   try {
-    const res = await api.get('/products', { params });
+    const res = await api.get('/api/v1/products', { params });
     const data = res.data;
     const list = Array.isArray(data) ? data : (data.items || data || []);
     // debug log to help trace empty catalog issues
@@ -37,22 +37,22 @@ export async function fetchProducts(params = {}) {
 }
 
 export async function fetchProductById(id) {
-  const res = await api.get(`/products/${id}`);
+  const res = await api.get(`/api/v1/products/${id}`);
   return normalizeProduct(res.data);
 }
 
 export async function createProduct(payload) {
-  const res = await api.post('/products', payload);
+  const res = await api.post('/api/v1/products', payload);
   return res.data;
 }
 
 export async function updateProductById(id, payload) {
-  const res = await api.put(`/products/${id}`, payload);
+  const res = await api.put(`/api/v1/products/${id}`, payload);
   return res.data;
 }
 
 export async function deleteProductById(id) {
-  const res = await api.delete(`/products/${id}`);
+  const res = await api.delete(`/api/v1/products/${id}`);
   return res.data;
 }
 

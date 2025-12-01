@@ -21,7 +21,7 @@ function normalizeBlog(raw) {
 // Fetch all blogs with optional filters
 export async function fetchBlogs(params = {}) {
   try {
-    const res = await api.get('/blogs', { params });
+    const res = await api.get('/api/v1/blogs', { params });
     const data = res.data;
     const list = Array.isArray(data) ? data : (data.items || []);
     console.debug('[blogsService] fetched blogs count=', list.length);
@@ -35,7 +35,7 @@ export async function fetchBlogs(params = {}) {
 // Fetch blog by ID
 export async function fetchBlogById(id) {
   try {
-    const res = await api.get(`/blogs/${id}`);
+    const res = await api.get(`/api/v1/blogs/${id}`);
     return normalizeBlog(res.data);
   } catch (err) {
     console.error('[blogsService] fetchBlogById error', err?.message || err);
@@ -46,7 +46,7 @@ export async function fetchBlogById(id) {
 // Fetch all available categories
 export async function fetchBlogCategories() {
   try {
-    const res = await api.get('/blogs/categories');
+    const res = await api.get('/api/v1/blogs/categories');
     return res.data || [];
   } catch (err) {
     console.error('[blogsService] fetchBlogCategories error', err?.message || err);
@@ -57,7 +57,7 @@ export async function fetchBlogCategories() {
 // Create a new blog
 export async function createBlog(payload) {
   try {
-    const res = await api.post('/blogs', payload);
+    const res = await api.post('/api/v1/blogs', payload);
     return normalizeBlog(res.data);
   } catch (err) {
     console.error('[blogsService] createBlog error', err?.message || err);
@@ -68,7 +68,7 @@ export async function createBlog(payload) {
 // Update existing blog
 export async function updateBlogById(id, payload) {
   try {
-    const res = await api.put(`/blogs/${id}`, payload);
+    const res = await api.put(`/api/v1/blogs/${id}`, payload);
     return normalizeBlog(res.data);
   } catch (err) {
     console.error('[blogsService] updateBlogById error', err?.message || err);
@@ -79,7 +79,7 @@ export async function updateBlogById(id, payload) {
 // Delete blog
 export async function deleteBlogById(id) {
   try {
-    const res = await api.delete(`/blogs/${id}`);
+    const res = await api.delete(`/api/v1/blogs/${id}`);
     return res.data;
   } catch (err) {
     console.error('[blogsService] deleteBlogById error', err?.message || err);

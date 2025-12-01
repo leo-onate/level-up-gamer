@@ -21,8 +21,8 @@ export default function Login() {
     <div className="login-container container my-5">
       <h2>Iniciar Sesión</h2>
       <form onSubmit={onSubmit}>
-        <label htmlFor="usuario">Usuario (nombre o correo)</label>
-        <input id="usuario" value={usuario} onChange={(e)=>setUsuario(e.target.value)} required />
+        <label htmlFor="usuario">Email</label>
+        <input id="usuario" type="email" value={usuario} onChange={(e)=>setUsuario(e.target.value)} required />
 
         <label htmlFor="password">Contraseña</label>
         <input id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} required />
