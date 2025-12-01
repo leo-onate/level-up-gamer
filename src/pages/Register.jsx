@@ -37,13 +37,13 @@ export default function Register() {
     return e;
   };
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault();
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length) return;
 
-    const result = registerUser({ nombre, correo, contrasena, fechaNacimiento });
+    const result = await registerUser({ nombre, correo, contrasena, fechaNacimiento });
     if (!result.ok) {
       alert(result.error || "Error al registrarse");
       return;
