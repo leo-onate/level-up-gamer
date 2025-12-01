@@ -11,6 +11,7 @@ export default function AdminUsers() {
     correo: "",
     contrasena: "",
     fechaNacimiento: "",
+    isAdmin: false,
   });
 
   useEffect(() => {
@@ -36,6 +37,9 @@ export default function AdminUsers() {
     setEditUser((s) => ({ ...s, [field]: value }));
   };
 
+  const [saving, setSaving] = React.useState(false);
+  const [saveError, setSaveError] = React.useState(null);
+
   const handleSave = (index) => {
     const user = users[index];
     const payload = {
@@ -44,12 +48,14 @@ export default function AdminUsers() {
       email: editUser.correo,
       // only send password if user changed it (and not masked)
       ...(editUser.contrasena && editUser.contrasena !== '••••••' ? { password: editUser.contrasena } : {}),
-      fechaNac: editUser.fechaNacimiento || user.fechaNacimiento || null,
+      fechaNac: editUser.fechaNacimiento ? `${editUser.fechaNacimiento}T00:00:00` : (user.fechaNacimiento ? `${user.fechaNacimiento}T00:00:00` : null),
       isAdmin: editUser.isAdmin ?? user.isAdmin ?? false,
     };
 
     // Try backend update, fallback to local storage
     if (user && user.id) {
+      setSaving(true);
+      setSaveError(null);
       updateUserById(user.id, payload)
         .then((updated) => {
           const copy = [...users];
@@ -59,12 +65,15 @@ export default function AdminUsers() {
         })
         .catch((err) => {
           console.error('updateUserById error', err);
+          setSaveError(err?.response?.data || err.message || 'Error al actualizar');
+          // fallback to saving locally
           const updated = [...users];
           updated[index] = { ...updated[index], ...editUser };
           saveUsers(updated);
           setUsers(updated);
           setEditingIndex(-1);
-        });
+        })
+        .finally(() => setSaving(false));
     } else {
       // local-only user
       const updated = [...users];
@@ -132,6 +141,18 @@ export default function AdminUsers() {
                           onChange={(e) => handleChange("fechaNacimiento", e.target.value)}
                         />
                       </td>
+                      <td className="text-center align-middle">
+                        <div className="form-check">
+                          <input
+                            id="isAdmin"
+                            type="checkbox"
+                            className="form-check-input"
+                            checked={!!editUser.isAdmin}
+                            onChange={(e) => handleChange('isAdmin', e.target.checked)}
+                          />
+                          <label className="form-check-label" htmlFor="isAdmin">Admin</label>
+                        </div>
+                      </td>
                       <td>
                         <div className="d-flex gap-2">
                           <button className="btn btn-sm btn-primary" onClick={() => handleSave(idx)}>
@@ -149,6 +170,7 @@ export default function AdminUsers() {
                       <td>{u.correo}</td>
                       <td>{u.contrasena ? "•••••••" : ""}</td>
                       <td>{u.fechaNacimiento || ""}</td>
+                      <td>{u.isAdmin ? 'Sí' : 'No'}</td>
                       <td>
                         <div className="d-flex justify-content-end gap-2">
                           <button className="btn btn-sm btn-view" onClick={() => handleEditClick(idx)}>
