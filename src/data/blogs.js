@@ -2,7 +2,7 @@
 export const blogPosts = [
   {
     id: "setup-economico-2025",
-    title: "Cómo armar tu setup gamer económico (2025)",
+    title: "Cico (2025)",
     date: "2025-10-20",
     category: "Guías",
     cover: "/blogsimg/xocas.jpg", 
