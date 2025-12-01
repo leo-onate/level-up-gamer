@@ -38,13 +38,29 @@ export async function login({ usuario, password }) {
       localStorage.setItem('username', res.data.username);
       localStorage.setItem('role', res.data.role);
       
-      // Guardar usuario en formato compatible con el resto de la app
-      const safe = { 
-        name: res.data.username, 
-        email: res.data.username,
-        isAdmin: res.data.role === 'ROLE_ADMIN'
-      };
-      try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
+      // Obtener datos completos del usuario desde /api/v1/users/me
+      try {
+        const userRes = await api.get('/api/v1/users/me');
+        const userData = userRes.data;
+        
+        // Guardar usuario completo en formato compatible con el resto de la app
+        const safe = { 
+          id: userData.id,
+          name: userData.name || userData.nombre || res.data.username,
+          email: userData.email || res.data.username,
+          isAdmin: res.data.role === 'ROLE_ADMIN'
+        };
+        try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
+      } catch (err) {
+        // Si falla obtener el usuario completo, usar datos del token
+        const safe = { 
+          name: res.data.username, 
+          email: res.data.username,
+          isAdmin: res.data.role === 'ROLE_ADMIN'
+        };
+        try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
+      }
+      
       return true;
     }
     return false;
