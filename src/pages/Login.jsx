@@ -7,9 +7,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const ok = login({ usuario, password });
+    const ok = await login({ usuario, password });
     if (!ok) {
       alert("Usuario o contraseña incorrectos");
       return;

@@ -12,7 +12,12 @@ export default function LoggedNavbar() {
     navigate("/login");
   };
 
-  const isAdmin = user?.nombre === "admin";
+  // support different user shapes: prefer boolean `isAdmin`, fallback to `is_admin` numeric flag
+  const isAdmin = !!(
+    user && (
+      user.isAdmin === true || user.isAdmin === 1 || user.is_admin === 1 || user.is_admin === true || String(user.nombre).toLowerCase() === 'admin'
+    )
+  );
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -50,7 +55,7 @@ export default function LoggedNavbar() {
             {user && (
               <li className="nav-item ms-3 d-flex align-items-center text-light">
                 <span className="me-2">
-                  👋 Hola, <strong>{user.nombre || user.username}</strong>
+                  👋 Hola, <strong>{user.name || user.nombre || user.username}</strong>
                 </span>
                 <button className="btn btn-link nav-link p-0" onClick={handleLogout}>
                   Cerrar sesión
