@@ -11,7 +11,7 @@ export async function registerUser({ nombre, correo, contrasena, fechaNacimiento
       fechaNac: fechaNacimiento,
       isAdmin: false
     };
-    const res = await api.post('/users', payload);
+    const res = await api.post('/api/v1/users', payload);
     const user = res.data;
     // store minimal user locally (do not store password)
     const safe = { id: user.id, email: user.email, name: user.name, isAdmin: user.isAdmin };
@@ -26,12 +26,24 @@ export async function registerUser({ nombre, correo, contrasena, fechaNacimiento
 
 export async function login({ usuario, password }) {
   try {
-    // backend doesn't have a login endpoint; fetch users and verify (temporary)
-    const res = await api.get('/users');
-    const list = Array.isArray(res.data) ? res.data : (res.data.items || []);
-    const found = list.find(u => (u.email && u.email === usuario) || (u.name && u.name === usuario));
-    if (found && String(found.password) === String(password)) {
-      const safe = { id: found.id, email: found.email, name: found.name, isAdmin: found.isAdmin };
+    // Llamar al endpoint JWT del backend
+    const res = await api.post('/api/auth/login', {
+      username: usuario,
+      password: password
+    });
+    
+    if (res.data && res.data.token) {
+      // Guardar el token JWT
+      localStorage.setItem('jwt_token', res.data.token);
+      localStorage.setItem('username', res.data.username);
+      localStorage.setItem('role', res.data.role);
+      
+      // Guardar usuario en formato compatible con el resto de la app
+      const safe = { 
+        name: res.data.username, 
+        email: res.data.username,
+        isAdmin: res.data.role === 'ROLE_ADMIN'
+      };
       try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
       return true;
     }
@@ -43,7 +55,12 @@ export async function login({ usuario, password }) {
 }
 
 export function logout() {
-  try { localStorage.removeItem(CURRENT_KEY); } catch {}
+  try { 
+    localStorage.removeItem(CURRENT_KEY);
+    localStorage.removeItem('jwt_token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+  } catch {}
 }
 
 export function getCurrentUser() {
