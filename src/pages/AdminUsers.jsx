@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchUsers, updateUserById, getUsers, saveUsers } from "../services/userService";
+import { fetchUsers, updateUserById, deleteUser, getUsers, saveUsers } from "../services/userService";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminUsers() {
@@ -88,6 +88,21 @@ export default function AdminUsers() {
 
   const handleCancel = () => {
     setEditingIndex(-1);
+  };
+
+  const handleDelete = async (userId, userName) => {
+    if (!window.confirm(`¿Estás seguro de eliminar al usuario "${userName}"? Esta acción no se puede deshacer.`)) {
+      return;
+    }
+
+    try {
+      await deleteUser(userId);
+      setUsers(users.filter(u => u.id !== userId));
+      alert('Usuario eliminado exitosamente');
+    } catch (error) {
+      console.error('Error al eliminar usuario:', error);
+      alert('Error al eliminar el usuario: ' + (error.response?.data || error.message));
+    }
   };
 
   return (
@@ -182,6 +197,13 @@ export default function AdminUsers() {
                           </button>
                           <button className="btn btn-sm btn-info" onClick={() => navigate(`/admin/historial-compras/${u.correo}`)}>
                             Ver historial
+                          </button>
+                          <button 
+                            className="btn btn-sm btn-danger" 
+                            onClick={() => handleDelete(u.id, u.nombre)}
+                            disabled={!u.id}
+                          >
+                            Eliminar
                           </button>
                         </div>
                       </td>

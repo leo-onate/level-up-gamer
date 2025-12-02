@@ -80,6 +80,8 @@ export async function deleteUserById(id) {
   return res.data;
 }
 
+export const deleteUser = deleteUserById; // Alias para compatibilidad
+
 export async function updateUserTipo(id, tipo) {
   try {
     const res = await api.patch(`/api/v1/users/${id}/tipo`, { tipo });
