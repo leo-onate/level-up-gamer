@@ -42,6 +42,7 @@ function normalizeUser(raw) {
     contrasena: raw.password ? '••••••' : '',
     fechaNacimiento: fechaIso,
     isAdmin: raw.isAdmin ?? raw.is_admin ?? false,
+    tipo: raw.tipo ?? (raw.isAdmin || raw.is_admin ? 2 : 0), // 0=cliente, 1=vendedor, 2=admin
     _raw: raw,
   };
 }
@@ -77,4 +78,26 @@ export async function createUser(payload) {
 export async function deleteUserById(id) {
   const res = await api.delete(`/api/v1/users/${id}`);
   return res.data;
+}
+
+export async function updateUserTipo(id, tipo) {
+  try {
+    const res = await api.patch(`/api/v1/users/${id}/tipo`, { tipo });
+    return normalizeUser(res.data);
+  } catch (err) {
+    console.error('[userService] updateUserTipo error', err?.message || err);
+    throw err;
+  }
+}
+
+export async function fetchUsersByTipo(tipo) {
+  try {
+    const res = await api.get(`/api/v1/users/by-tipo/${tipo}`);
+    const data = res.data;
+    const list = Array.isArray(data) ? data : [];
+    return list.map(normalizeUser);
+  } catch (err) {
+    console.error('[userService] fetchUsersByTipo error', err?.message || err);
+    throw err;
+  }
 }

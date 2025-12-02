@@ -9,12 +9,13 @@ export async function registerUser({ nombre, correo, contrasena, fechaNacimiento
       password: contrasena,
       name: nombre,
       fechaNac: fechaNacimiento,
-      isAdmin: false
+      isAdmin: false,
+      tipo: 0 // Cliente por defecto
     };
     const res = await api.post('/api/v1/users', payload);
     const user = res.data;
     // store minimal user locally (do not store password)
-    const safe = { id: user.id, email: user.email, name: user.name, isAdmin: user.isAdmin };
+    const safe = { id: user.id, email: user.email, name: user.name, isAdmin: user.isAdmin, tipo: user.tipo ?? (user.isAdmin ? 2 : 0) };
     try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
     return { ok: true, user: safe };
   } catch (err) {
@@ -48,7 +49,8 @@ export async function login({ usuario, password }) {
           id: userData.id,
           name: userData.name || userData.nombre || res.data.username,
           email: userData.email || res.data.username,
-          isAdmin: res.data.role === 'ROLE_ADMIN'
+          isAdmin: res.data.role === 'ROLE_ADMIN',
+          tipo: userData.tipo ?? (res.data.role === 'ROLE_ADMIN' ? 2 : res.data.role === 'ROLE_VENDEDOR' ? 1 : 0)
         };
         try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
       } catch (err) {
@@ -56,7 +58,8 @@ export async function login({ usuario, password }) {
         const safe = { 
           name: res.data.username, 
           email: res.data.username,
-          isAdmin: res.data.role === 'ROLE_ADMIN'
+          isAdmin: res.data.role === 'ROLE_ADMIN',
+          tipo: res.data.role === 'ROLE_ADMIN' ? 2 : res.data.role === 'ROLE_VENDEDOR' ? 1 : 0
         };
         try { localStorage.setItem(CURRENT_KEY, JSON.stringify(safe)); } catch {}
       }

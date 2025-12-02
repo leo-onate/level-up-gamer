@@ -12,12 +12,19 @@ export default function LoggedNavbar() {
     navigate("/login");
   };
 
-  // support different user shapes: prefer boolean `isAdmin`, fallback to `is_admin` numeric flag
+  // support different user shapes: prefer tipo field, fallback to isAdmin
   const isAdmin = !!(
     user && (
-      user.isAdmin === true || user.isAdmin === 1 || user.is_admin === 1 || user.is_admin === true || String(user.nombre).toLowerCase() === 'admin'
+      user.tipo === 2 || 
+      user.isAdmin === true || user.isAdmin === 1 || user.is_admin === 1 || user.is_admin === true || 
+      String(user.nombre).toLowerCase() === 'admin'
     )
   );
+
+  const isVendedor = !!(user && user.tipo === 1);
+
+  // Admin o vendedor pueden ver opciones administrativas
+  const canAccessAdmin = isAdmin || isVendedor;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -62,30 +69,34 @@ export default function LoggedNavbar() {
                 </button>
               </li>
             )}
-            {/* Si el usuario es admin tendra nuevas opciones visibles*/}
-            {isAdmin && (
+            {/* Si el usuario es admin o vendedor tendrá opciones administrativas visibles*/}
+            {canAccessAdmin && (
               <li className="nav-item ms-3" style={{ position: "relative" }}>
                 <button
                   className="btn btn-link nav-link"
                   onClick={() => setAdminOpen((v) => !v)}
                   aria-expanded={adminOpen}
                 >
-                  Opciones de admin ▾
+                  {isVendedor ? 'Opciones de vendedor ▾' : 'Opciones de admin ▾'}
                 </button>
 
                 {adminOpen && (
                   <div className="admin-dropdown">
-                    <button
-                      className="dropdown-item"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setAdminOpen(false);
-                        navigate("/admin/usuarios");
-                      }}
-                    >
-                      Administrar usuarios
-                    </button>
+                    {/* Solo admin puede gestionar usuarios */}
+                    {isAdmin && (
+                      <button
+                        className="dropdown-item"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAdminOpen(false);
+                          navigate("/admin/usuarios");
+                        }}
+                      >
+                        Administrar usuarios
+                      </button>
+                    )}
 
+                    {/* Admin y vendedor pueden gestionar productos */}
                     <button
                       className="dropdown-item"
                       onClick={(e) => {
@@ -108,6 +119,7 @@ export default function LoggedNavbar() {
                       Agregar producto
                     </button>
 
+                    {/* Admin y vendedor pueden ver boletas */}
                     <button
                       className="dropdown-item"
                       onClick={(e) => {
@@ -119,16 +131,19 @@ export default function LoggedNavbar() {
                       Boletas
                     </button>
 
-                    <button
-                      className="dropdown-item"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setAdminOpen(false);
-                        navigate("/admin/reportes");
-                      }}
-                    >
-                      Reportes
-                    </button>
+                    {/* Solo admin puede ver reportes */}
+                    {isAdmin && (
+                      <button
+                        className="dropdown-item"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAdminOpen(false);
+                          navigate("/admin/reportes");
+                        }}
+                      >
+                        Reportes
+                      </button>
+                    )}
                   </div>
                 )}
               </li>

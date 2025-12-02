@@ -12,6 +12,7 @@ export default function AdminUsers() {
     contrasena: "",
     fechaNacimiento: "",
     isAdmin: false,
+    tipo: 0, // 0=cliente, 1=vendedor, 2=admin
   });
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function AdminUsers() {
       ...(editUser.contrasena && editUser.contrasena !== '••••••' ? { password: editUser.contrasena } : {}),
       fechaNac: editUser.fechaNacimiento ? `${editUser.fechaNacimiento}T00:00:00` : (user.fechaNacimiento ? `${user.fechaNacimiento}T00:00:00` : null),
       isAdmin: editUser.isAdmin ?? user.isAdmin ?? false,
+      tipo: editUser.tipo ?? user.tipo ?? 0,
     };
 
     // Try backend update, fallback to local storage
@@ -104,7 +106,8 @@ export default function AdminUsers() {
                 <th>Correo</th>
                 <th>Contraseña</th>
                 <th>Fecha nacimiento</th>
-                <th></th>
+                <th>Tipo</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -141,17 +144,16 @@ export default function AdminUsers() {
                           onChange={(e) => handleChange("fechaNacimiento", e.target.value)}
                         />
                       </td>
-                      <td className="text-center align-middle">
-                        <div className="form-check">
-                          <input
-                            id="isAdmin"
-                            type="checkbox"
-                            className="form-check-input"
-                            checked={!!editUser.isAdmin}
-                            onChange={(e) => handleChange('isAdmin', e.target.checked)}
-                          />
-                          <label className="form-check-label" htmlFor="isAdmin">Admin</label>
-                        </div>
+                      <td>
+                        <select
+                          className="form-select form-select-sm"
+                          value={editUser.tipo ?? 0}
+                          onChange={(e) => handleChange('tipo', parseInt(e.target.value))}
+                        >
+                          <option value={0}>Cliente</option>
+                          <option value={1}>Vendedor</option>
+                          <option value={2}>Admin</option>
+                        </select>
                       </td>
                       <td>
                         <div className="d-flex gap-2">
@@ -170,7 +172,9 @@ export default function AdminUsers() {
                       <td>{u.correo}</td>
                       <td>{u.contrasena ? "•••••••" : ""}</td>
                       <td>{u.fechaNacimiento || ""}</td>
-                      <td>{u.isAdmin ? 'Sí' : 'No'}</td>
+                      <td>
+                        {u.tipo === 2 ? 'Admin' : u.tipo === 1 ? 'Vendedor' : 'Cliente'}
+                      </td>
                       <td>
                         <div className="d-flex justify-content-end gap-2">
                           <button className="btn btn-sm btn-view" onClick={() => handleEditClick(idx)}>
