@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchProducts, fetchProductById } from "../services/productService";
+import { fetchProductById } from "../services/productService";
 
 const CART_KEY = "cart";
 const CartContext = createContext();
