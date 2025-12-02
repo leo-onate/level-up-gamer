@@ -8,7 +8,7 @@ export async function registerUser({ nombre, correo, contrasena, fechaNacimiento
       email: (correo || '').trim().toLowerCase(),
       password: contrasena,
       name: nombre,
-      fechaNac: fechaNacimiento,
+      fechaNac: fechaNacimiento ? `${fechaNacimiento}T00:00:00` : null, // Convertir a LocalDateTime
       isAdmin: false,
       tipo: 0 // Cliente por defecto
     };
@@ -35,6 +35,7 @@ export async function login({ usuario, password }) {
     
     if (res.data && res.data.token) {
       // Guardar el token JWT
+      localStorage.setItem('token', res.data.token); // ✅ Cambiado de jwt_token a token
       localStorage.setItem('jwt_token', res.data.token);
       localStorage.setItem('username', res.data.username);
       localStorage.setItem('role', res.data.role);
@@ -76,6 +77,7 @@ export async function login({ usuario, password }) {
 export function logout() {
   try { 
     localStorage.removeItem(CURRENT_KEY);
+    localStorage.removeItem('token');
     localStorage.removeItem('jwt_token');
     localStorage.removeItem('username');
     localStorage.removeItem('role');

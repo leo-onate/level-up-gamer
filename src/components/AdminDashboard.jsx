@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../services/productService';
-import { getUsers } from '../services/userService';
+import { fetchUsers } from '../services/userService';
 import { getOrders } from '../services/orderService';
 import images from '../services/imageLoader';
 // import './AdminDashboard.css';
@@ -17,20 +17,39 @@ export default function AdminDashboard() {
     let mounted = true;
     async function loadData() {
       try {
+        const token = localStorage.getItem('token');
         const [prods, usrs, ords] = await Promise.all([
           fetchProducts(),
-          getUsers(),
-          Promise.resolve(getOrders()), // getOrders() es síncrono si usa localStorage
+          fetchUsers(),
+          // Obtener el count desde el backend
+          fetch('http://localhost:8080/api/v1/orders/count', {
+            headers: token ? {
+              'Authorization': `Bearer ${token}`
+            } : {}
+          })
+            .then(res => {
+              if (!res.ok) {
+                console.warn('No se pudo obtener el contador de órdenes del backend');
+                return { count: 0 };
+              }
+              return res.json();
+            })
+            .then(data => ({ length: data.count || 0 }))
+            .catch(err => {
+              console.error('Error al obtener contador de órdenes:', err);
+              return { length: 0 };
+            })
         ]);
         if (!mounted) return;
         setProducts(Array.isArray(prods) ? prods : []);
         setUsers(Array.isArray(usrs) ? usrs : []);
-        setOrders(Array.isArray(ords) ? ords : []);
+        setOrders(ords); // ords ahora es un objeto con { length: count }
       } catch (err) {
         console.error('AdminDashboard load error', err);
         if (mounted) {
           setProducts([]);
           setUsers([]);
+          setOrders({ length: 0 });
         }
       } finally {
         if (mounted) setLoading(false);
