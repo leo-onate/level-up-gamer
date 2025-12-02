@@ -34,12 +34,13 @@ export default function Boleta({ order }) {
             </thead>
             <tbody>
               {items.map((it, idx) => {
-                const precio = Number(it.precio) || 0;
-                const qty = Number(it.qty) || 0;
-                const sub = precio * qty;
+                const precio = Number(it.unitPrice || it.precio) || 0;
+                const qty = Number(it.quantity || it.qty) || 0;
+                const sub = Number(it.subtotal) || (precio * qty);
+                const nombre = it.product?.name || it.nombre || "Producto";
                 return (
                   <tr key={idx}>
-                    <td>{it.nombre}</td>
+                    <td>{nombre}</td>
                     <td>{qty}</td>
                     <td>${precio.toFixed(2)}</td>
                     <td><strong>${sub.toFixed(2)}</strong></td>

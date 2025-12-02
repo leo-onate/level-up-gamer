@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { getCurrentUser } from "../services/auth";
+import { createOrderInBackend, updateOrderStatus } from "../services/orderService";
 
 export default function Checkout() {
   const { items, getTotal, clearCart } = useCart();
   const navigate = useNavigate();
   const user = getCurrentUser();
-  const [nombre, setNombre] = useState("");
+  const [nombre, setNombre] = useState(user?.name || "");
   const [direccion, setDireccion] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [codigo, setCodigo] = useState("");
@@ -18,7 +19,7 @@ export default function Checkout() {
 
   const total = getTotal();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -30,51 +31,102 @@ export default function Checkout() {
       setError("Introduce un número de tarjeta válido (simulado).");
       return;
     }
+    
+    if (!user || !user.id) {
+      setError("Debes iniciar sesión para realizar una compra.");
+      return;
+    }
+
     setProcesando(true);
 
-    // obtener y actualizar contador persistente
-    const last = parseInt(localStorage.getItem("orderCounter") || "0", 10);
-    const number = last + 1;
-    try {
-      localStorage.setItem("orderCounter", String(number));
-    } catch {}
-
-    const order = {
-      id: `order_${number}`,
-      number,
-      displayId: `Orden N°${number}`,
-      createdAt: Date.now(),
-      customer: { nombre, direccion, ciudad, codigo, metodo },
-      items,
-      total,
-      // Asociar el usuario a la orden
-      userEmail: user ? user.correo : null,
+    // Preparar datos para el backend
+    const orderData = {
+      userId: user.id,
+      customerName: nombre,
+      customerEmail: user.email || user.correo,
+      deliveryAddress: `${direccion}, ${ciudad}, ${codigo}`,
+      paymentMethod: metodo,
+      status: "PENDIENTE",
+      items: items.map(item => ({
+        product: { id: item.id },
+        quantity: item.qty,
+        unitPrice: item.precio || item.price,
+        subtotal: (item.precio || item.price) * item.qty
+      }))
     };
 
-   
-    setTimeout(() => {
-      const rnd = Math.floor(Math.random() * 3) + 1; 
+    try {
+      // Enviar al backend (valida y descuenta stock)
+      const createdOrder = await createOrderInBackend(orderData);
+      
+      // Simular procesamiento de pago (random)
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      const rnd = Math.floor(Math.random() * 3) + 1;
+      
       if (rnd === 3) {
-        // fallo la compra
-        order.status = "failed";
-        order.error = "Pago rechazado por el procesador (simulado).";
+        // Simular pago rechazado - cancelar orden y restaurar stock
         try {
-          localStorage.setItem("lastOrder", JSON.stringify(order));
+          await updateOrderStatus(createdOrder.id, "CANCELADO");
+        } catch (cancelErr) {
+          console.error('Error al cancelar orden:', cancelErr);
+        }
+        
+        const failedOrder = {
+          id: `order_${createdOrder.id}`,
+          number: createdOrder.id,
+          displayId: `Orden N°${createdOrder.id}`,
+          createdAt: Date.now(),
+          customer: { nombre, direccion, ciudad, codigo, metodo },
+          items,
+          total,
+          userEmail: user.email || user.correo,
+          status: "failed",
+          error: "Pago rechazado por el procesador (simulado).",
+          backendId: createdOrder.id
+        };
+        
+        try {
+          localStorage.setItem("lastOrder", JSON.stringify(failedOrder));
         } catch {}
+        
         setProcesando(false);
         navigate("/checkout/fallo");
         return;
       }
-
-      // éxito al comprar
-      order.status = "success";
+      
+      // Pago exitoso
+      const localOrder = {
+        id: `order_${createdOrder.id}`,
+        number: createdOrder.id,
+        displayId: `Orden N°${createdOrder.id}`,
+        createdAt: Date.now(),
+        customer: { nombre, direccion, ciudad, codigo, metodo },
+        items,
+        total,
+        userEmail: user.email || user.correo,
+        status: "success",
+        backendId: createdOrder.id
+      };
+      
       try {
-        localStorage.setItem("lastOrder", JSON.stringify(order));
+        localStorage.setItem("lastOrder", JSON.stringify(localOrder));
       } catch {}
+      
       clearCart();
       setProcesando(false);
       navigate("/checkout/success");
-    }, 1200);
+      
+    } catch (err) {
+      console.error('Error al crear orden:', err);
+      setProcesando(false);
+      
+      // Verificar si es error de stock
+      if (err.response?.data?.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("Error al procesar la orden. Intenta nuevamente.");
+      }
+    }
   };
 
   if (!items.length) {

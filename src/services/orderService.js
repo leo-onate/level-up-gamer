@@ -1,3 +1,5 @@
+import api from './http';
+
 // Servicio flexible para leer/escribir "boletas" en localStorage
 const DEFAULT_KEY = 'boletas';
 const CANDIDATE_KEYS = ['boletas', 'orders', 'orderHistory', 'ordenes', 'orders_list'];
@@ -72,4 +74,56 @@ export function getOrdersByUserEmail(email) {
   if (!email) return [];
   const allOrders = getOrders();
   return allOrders.filter(order => order.userEmail === email);
+}
+
+// ========== FUNCIONES PARA BACKEND ==========
+
+export async function createOrderInBackend(orderData) {
+  try {
+    const response = await api.post('/api/v1/orders', orderData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear orden en backend:', error);
+    throw error;
+  }
+}
+
+export async function fetchOrdersFromBackend() {
+  try {
+    const response = await api.get('/api/v1/orders');
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener órdenes del backend:', error);
+    throw error;
+  }
+}
+
+export async function fetchOrderById(id) {
+  try {
+    const response = await api.get(`/api/v1/orders/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener orden del backend:', error);
+    throw error;
+  }
+}
+
+export async function fetchOrdersByUserId(userId) {
+  try {
+    const response = await api.get(`/api/v1/orders?userId=${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener órdenes por usuario:', error);
+    throw error;
+  }
+}
+
+export async function updateOrderStatus(id, status) {
+  try {
+    const response = await api.patch(`/api/v1/orders/${id}/status`, { status });
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar estado de orden:', error);
+    throw error;
+  }
 }
