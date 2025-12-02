@@ -85,3 +85,29 @@ export function logout() {
 export function getCurrentUser() {
   try { return JSON.parse(localStorage.getItem(CURRENT_KEY)); } catch { return null; }
 }
+
+// ✅ Funciones helper para verificar roles
+export function isCliente() {
+  const role = localStorage.getItem('role');
+  return role === 'ROLE_CLIENTE';
+}
+
+export function isVendedor() {
+  const role = localStorage.getItem('role');
+  return role === 'ROLE_VENDEDOR';
+}
+
+export function isAdmin() {
+  const role = localStorage.getItem('role');
+  return role === 'ROLE_ADMIN';
+}
+
+export function canManageProducts() {
+  const role = localStorage.getItem('role');
+  return role === 'ROLE_VENDEDOR' || role === 'ROLE_ADMIN';
+}
+
+export function canManageOrders() {
+  const role = localStorage.getItem('role');
+  return role === 'ROLE_VENDEDOR' || role === 'ROLE_ADMIN';
+}
