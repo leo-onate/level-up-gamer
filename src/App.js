@@ -22,6 +22,7 @@ import Checkout from "./pages/Checkout";           // <-- nuevo
 import OrderSuccess from "./pages/OrderSuccess"; // <-- nuevo
 import OrderFailure from "./pages/OrderFailure";
 import AdminUsers from "./pages/AdminUsers";
+import Boletas from "./pages/Boletas";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import AdminProducts from "./pages/AdminProducts";
 import AdminReports from "./pages/AdminReports";
@@ -91,6 +92,9 @@ export default function App() {
 
           {/* Order Failure */}
           <Route path="/checkout/fallo" element={<OrderFailure />} />
+
+          {/* Boletas - historial del usuario */}
+          <Route path="/boletas" element={<Boletas />} />
 
           {/* Categorías */}
           <Route path="/categoria/:categoria" element={<Categoria />} />

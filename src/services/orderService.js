@@ -1,3 +1,20 @@
+import api from './http';
+
+export async function createOrder(payload) {
+  // payload should match backend CreateOrderRequest: { userId, currency, paymentMethod, items: [{productId, quantity}] }
+  const res = await api.post('/orders', payload);
+  return res.data;
+}
+
+export async function getMyOrders() {
+  const res = await api.get('/orders/me');
+  return res.data;
+}
+
+export async function getOrderById(id) {
+  const res = await api.get(`/orders/${id}`);
+  return res.data;
+}
 // Servicio flexible para leer/escribir "boletas" en localStorage
 const DEFAULT_KEY = 'boletas';
 const CANDIDATE_KEYS = ['boletas', 'orders', 'orderHistory', 'ordenes', 'orders_list'];
