@@ -8,7 +8,7 @@ const api = axios.create({
 // Interceptor para agregar el token JWT en cada request
 api.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem('token') || localStorage.getItem('jwt_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -25,6 +25,7 @@ api.interceptors.response.use(
   error => {
     if (error.response && error.response.status === 401) {
       // Token inválido o expirado - limpiar localStorage
+      localStorage.removeItem('token');
       localStorage.removeItem('jwt_token');
       localStorage.removeItem('username');
       localStorage.removeItem('role');
