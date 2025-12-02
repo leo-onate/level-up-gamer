@@ -45,7 +45,7 @@ export default function App() {
     <>
       {isPublic ? <Navbar /> : <LoggedNavBar />}
       <div className="container mt-4">
-        <Routes>
+        <Routes key={location.pathname}>
           {/* Página principal */}
           <Route path="/" element={<Home />} />
 
