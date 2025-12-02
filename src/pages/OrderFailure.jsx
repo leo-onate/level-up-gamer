@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 export default function OrderFailure() {
   const { clearCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Limpiar el carrito una sola vez al montar
     clearCart();
-  }, [clearCart]);
+    // Limpiar la información del pedido
+    localStorage.removeItem("lastOrder");
+  }, []); // Sin dependencias para ejecutar solo una vez
 
   let order = null;
   try {
@@ -17,7 +21,7 @@ export default function OrderFailure() {
   }
 
   return (
-    <div className="container mt-4">
+    <>
       <h2>Pago fallido</h2>
       {order ? (
         <>
@@ -30,8 +34,13 @@ export default function OrderFailure() {
 
       <div className="mt-3">
         <p>El carrito ha sido vaciado y el stock de los productos ha sido restaurado.</p>
-        <Link to="/catalogo" className="btn btn-primary">Ir al catálogo</Link>
+        <button 
+          className="btn btn-primary"
+          onClick={() => navigate("/catalogo")}
+        >
+          Ir al catálogo
+        </button>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { fetchProducts, deleteProductById, getProducts as getLocalProducts } from "../services/productService";
 import { useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../services/auth";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const currentUser = getCurrentUser();
+  
+  // Solo admin (tipo 2) puede eliminar productos
+  const canDelete = currentUser && currentUser.tipo === 2;
 
   useEffect(() => {
     let mounted = true;
@@ -69,9 +74,11 @@ export default function AdminProducts() {
                       <button className="btn btn-sm btn-view" onClick={() => navigate(`/catalogo/${p.id}`)}>
                         Ver
                       </button>
-                      <button className="btn btn-sm btn-delete" onClick={() => handleDelete(p.id, p.nombre)}>
-                        Eliminar
-                      </button>
+                      {canDelete && (
+                        <button className="btn btn-sm btn-delete" onClick={() => handleDelete(p.id, p.nombre)}>
+                          Eliminar
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
