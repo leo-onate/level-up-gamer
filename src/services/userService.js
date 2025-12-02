@@ -49,7 +49,7 @@ function normalizeUser(raw) {
 
 export async function fetchUsers() {
   try {
-    const res = await api.get('/users');
+    const res = await api.get('/api/v1/users');
     const data = res.data;
     const list = Array.isArray(data) ? data : (data.items || []);
     return list.map(normalizeUser);
@@ -60,29 +60,29 @@ export async function fetchUsers() {
 }
 
 export async function fetchUserById(id) {
-  const res = await api.get(`/users/${id}`);
+  const res = await api.get(`/api/v1/users/${id}`);
   return normalizeUser(res.data);
 }
 
 export async function updateUserById(id, payload) {
   // payload expected in backend shape
-  const res = await api.put(`/users/${id}`, payload);
+  const res = await api.put(`/api/v1/users/${id}`, payload);
   return normalizeUser(res.data);
 }
 
 export async function createUser(payload) {
-  const res = await api.post('/users', payload);
+  const res = await api.post('/api/v1/users', payload);
   return normalizeUser(res.data);
 }
 
 export async function deleteUserById(id) {
-  const res = await api.delete(`/users/${id}`);
+  const res = await api.delete(`/api/v1/users/${id}`);
   return res.data;
 }
 
 export async function updateUserTipo(id, tipo) {
   try {
-    const res = await api.patch(`/users/${id}/tipo`, { tipo });
+    const res = await api.patch(`/api/v1/users/${id}/tipo`, { tipo });
     return normalizeUser(res.data);
   } catch (err) {
     console.error('[userService] updateUserTipo error', err?.message || err);
@@ -92,7 +92,7 @@ export async function updateUserTipo(id, tipo) {
 
 export async function fetchUsersByTipo(tipo) {
   try {
-    const res = await api.get(`/users/by-tipo/${tipo}`);
+    const res = await api.get(`/api/v1/users/by-tipo/${tipo}`);
     const data = res.data;
     const list = Array.isArray(data) ? data : [];
     return list.map(normalizeUser);
