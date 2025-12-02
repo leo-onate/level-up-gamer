@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { products as initialProducts } from "../data/products.js";
+import { fetchProducts, fetchProductById } from "../services/productService";
 
 const CART_KEY = "cart";
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [products, setProducts] = useState(initialProducts);
   const [items, setItems] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem(CART_KEY)) || [];
@@ -20,78 +19,56 @@ export function CartProvider({ children }) {
     } catch {}
   }, [items]);
 
-  function addToCart(product, qty = 1) {
-    const productInStock = products.find(p => p.id === product.id);
-    if (!productInStock || productInStock.stock < qty) {
-      alert("No hay suficiente stock para añadir este producto.");
-      return;
+  async function addToCart(product, qty = 1) {
+    try {
+      // Verificar stock actual del backend
+      const currentProduct = await fetchProductById(product.id);
+      
+      // Calcular cantidad total que ya está en el carrito
+      const existingItem = items.find(i => i.id === product.id);
+      const totalQtyInCart = existingItem ? existingItem.qty : 0;
+      const newTotalQty = totalQtyInCart + qty;
+
+      if (!currentProduct.stock || currentProduct.stock < newTotalQty) {
+        alert(`Stock insuficiente. Disponible: ${currentProduct.stock || 0}, en carrito: ${totalQtyInCart}, intentas agregar: ${qty}`);
+        return;
+      }
+
+      setItems(prev => {
+        const found = prev.find(i => i.id === product.id);
+        if (found) {
+          return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + qty } : i);
+        } 
+        return [...prev, { ...product, qty }];
+      });
+    } catch (err) {
+      console.error('Error al agregar al carrito:', err);
+      alert('Error al verificar el stock del producto');
     }
-
-    setItems(prev => {
-      const found = prev.find(i => i.id === product.id);
-      if (found) {
-        if (productInStock.stock < found.qty + qty) {
-          alert("No hay suficiente stock para añadir este producto.");
-          return prev;
-        }
-        return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + qty } : i);
-      } 
-      return [...prev, { ...product, qty }];
-    });
-
-    setProducts(prevProducts => 
-      prevProducts.map(p => 
-        p.id === product.id ? { ...p, stock: p.stock - qty } : p
-      )
-    );
   }
 
   function removeFromCart(productId) {
-    const itemToRemove = items.find(i => i.id === productId);
-    if (!itemToRemove) return;
-
     setItems(prev => prev.filter(i => i.id !== productId));
-
-    setProducts(prevProducts => 
-      prevProducts.map(p => 
-        p.id === productId ? { ...p, stock: p.stock + itemToRemove.qty } : p
-      )
-    );
   }
 
-  function updateQty(productId, qty) {
-    const itemToUpdate = items.find(i => i.id === productId);
-    if (!itemToUpdate) return;
+  async function updateQty(productId, qty) {
+    try {
+      // Verificar stock actual del backend
+      const currentProduct = await fetchProductById(productId);
+      
+      if (!currentProduct.stock || currentProduct.stock < qty) {
+        alert(`Stock insuficiente. Disponible: ${currentProduct.stock || 0}`);
+        return;
+      }
 
-    const productInStock = products.find(p => p.id === productId);
-    const stockDifference = qty - itemToUpdate.qty;
-
-    if (productInStock.stock < stockDifference) {
-      alert("No hay suficiente stock para actualizar la cantidad.");
-      return;
+      setItems(prev => prev.map(i => i.id === productId ? { ...i, qty: Math.max(1, qty) } : i));
+    } catch (err) {
+      console.error('Error al actualizar cantidad:', err);
+      alert('Error al verificar el stock del producto');
     }
-
-    setItems(prev => prev.map(i => i.id === productId ? { ...i, qty: Math.max(1, qty) } : i));
-
-    setProducts(prevProducts => 
-      prevProducts.map(p => 
-        p.id === productId ? { ...p, stock: p.stock - stockDifference } : p
-      )
-    );
-  }
-
-  function restoreStock(itemsToRestore) {
-    itemsToRestore.forEach(item => {
-      setProducts(prevProducts => 
-        prevProducts.map(p => 
-          p.id === item.id ? { ...p, stock: p.stock + item.qty } : p
-        )
-      );
-    });
   }
 
   function clearCart() {
-    restoreStock(items);
     setItems([]);
   }
 
@@ -104,7 +81,7 @@ export function CartProvider({ children }) {
   }
 
   return (
-    <CartContext.Provider value={{ items, products, addToCart, removeFromCart, updateQty, clearCart, getTotal, clearCartOnSuccess, restoreStock }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQty, clearCart, getTotal, clearCartOnSuccess }}>
       {children}
     </CartContext.Provider>
   );
